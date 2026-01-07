@@ -1,0 +1,10 @@
+<resources>
+    <string name="appbar_none_description">Empty</string>
+    <string name="appbar_close_description">Закрыть</string>
+    <string name="appbar_back_description">Назад</string>
+
+    <string name="icon_close">Закрыть</string>
+
+    <string name="text_field_show_password">Показать пароль</string>
+    <string name="text_field_hide_password">Скрыть пароль</string>
+</resources>
