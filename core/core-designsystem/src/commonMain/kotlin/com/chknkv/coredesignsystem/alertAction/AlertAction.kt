@@ -64,7 +64,7 @@ fun AlertAction(
                             fontSize = 16.sp,
                             lineHeight = 20.sp,
                             letterSpacing = -(0.048).em,
-                            fontWeight = FontWeight.Normal
+                            fontWeight = FontWeight.Bold
                         ),
                         overflow = TextOverflow.Ellipsis
                     )

@@ -1,4 +1,4 @@
-package com.chknkv.feature.welcome.presentation.createPasscode
+package com.chknkv.feature.welcome.presentation.enterPasscode
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -31,40 +31,37 @@ import com.chknkv.coredesignsystem.snackbar.SnackBarCardData
 import com.chknkv.coredesignsystem.snackbar.showSnackBarCard
 import com.chknkv.coredesignsystem.theming.AcTokens
 import com.chknkv.coredesignsystem.theming.getThemedColor
-import com.chknkv.coredesignsystem.typography.Body3Secondary
 import com.chknkv.coredesignsystem.typography.Headline3
-import com.chknkv.feature.welcome.model.presentation.createPasscode.CreatePasscodeUiAction
-import com.chknkv.feature.welcome.model.presentation.createPasscode.CreatePasscodeUiEffect
+import com.chknkv.feature.welcome.model.presentation.enterPasscode.EnterPasscodeUiAction
+import com.chknkv.feature.welcome.model.presentation.enterPasscode.EnterPasscodeUiEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_welcome.generated.resources.Res
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_alert_negative_action
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_alert_positive_action
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_alert_subtitle
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_alert_title
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_skip
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_snackbar_password_not_matched
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_subtitle
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_title_1
-import weightobserver_project.feature.feature_welcome.generated.resources.create_passcode_title_2
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_title
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_forget_passcode
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_incorrect_passcode
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_alert_title
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_alert_subtitle
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_alert_positive_action
+import weightobserver_project.feature.feature_welcome.generated.resources.enter_passcode_alert_negative_action
 
 /**
- * UI screen for [CreatePasscodeComponent].
+ * UI screen for [EnterPasscodeComponent].
  *
  * @param component Component managing the logic of this screen.
  */
 @Composable
-fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
+fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
     val uiResult by component.uiResult.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val snackbarMessage = stringResource(Res.string.create_passcode_snackbar_password_not_matched)
+    val snackbarMessage = stringResource(Res.string.enter_passcode_incorrect_passcode)
 
-    LaunchedEffect(Unit) { component.initLoadCreatePasscodeScreen() }
+    LaunchedEffect(Unit) { component.initLoadEnterPasscodeScreen() }
 
     LaunchedEffect(Unit) {
         component.uiEffect.collect { effect ->
             when (effect) {
-                is CreatePasscodeUiEffect.PasswordsDoNotMatch -> {
+                is EnterPasscodeUiEffect.InvalidPasscode -> {
                     launch {
                         snackbarHostState.currentSnackbarData?.dismiss()
                         snackbarHostState.showSnackBarCard(snackbarMessage)
@@ -106,16 +103,8 @@ fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
             )
 
             Headline3(
-                text = if (uiResult.isConfirming) stringResource(Res.string.create_passcode_title_2)
-                else stringResource(Res.string.create_passcode_title_1),
+                text = stringResource(Res.string.enter_passcode_title),
                 modifier = Modifier.fillMaxWidth()
-            )
-
-            Body3Secondary(
-                text = stringResource(Res.string.create_passcode_subtitle),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp)
             )
 
             PasscodeStatus(
@@ -126,31 +115,33 @@ fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
             )
 
             PasscodeKeyboard(
-                onNumberClick = { component.emitAction(CreatePasscodeUiAction.NumberClick(it)) },
-                onDeleteClick = { component.emitAction(CreatePasscodeUiAction.DeleteClick) },
+                onNumberClick = { component.emitAction(EnterPasscodeUiAction.NumberClick(it)) },
+                onDeleteClick = { component.emitAction(EnterPasscodeUiAction.DeleteClick) },
                 modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)
             )
 
             AcButton(
-                text = stringResource(Res.string.create_passcode_skip),
+                text = stringResource(Res.string.enter_passcode_forget_passcode),
                 style = AcButtonStyle.Transparent,
-                onClick = { component.emitAction(CreatePasscodeUiAction.ShowAlert) },
+                onClick = { component.emitAction(EnterPasscodeUiAction.ShowForgotDialog) },
                 modifier = Modifier.fillMaxWidth()
             )
-        }
-    }
 
-    if (uiResult.isAlertEnabled) {
-        AlertAction(
-            data = AlertActionData(
-                titleAction = stringResource(Res.string.create_passcode_alert_title),
-                subtitleAction = stringResource(Res.string.create_passcode_alert_subtitle),
-                positiveActionText = stringResource(Res.string.create_passcode_alert_positive_action),
-                negativeActionText = stringResource(Res.string.create_passcode_alert_negative_action)
-            ),
-            onDismissClick = { component.emitAction(CreatePasscodeUiAction.DismissAlert) },
-            onPositiveActionClick = { component.emitAction(CreatePasscodeUiAction.DismissAlert) },
-            onNegativeActionClick = { component.emitAction(CreatePasscodeUiAction.Skip) }
-        )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        if (uiResult.isShowForgotDialog) {
+            AlertAction(
+                data = AlertActionData(
+                    titleAction = stringResource(Res.string.enter_passcode_alert_title),
+                    subtitleAction = stringResource(Res.string.enter_passcode_alert_subtitle),
+                    positiveActionText = stringResource(Res.string.enter_passcode_alert_positive_action),
+                    negativeActionText = stringResource(Res.string.enter_passcode_alert_negative_action)
+                ),
+                onDismissClick = { component.emitAction(EnterPasscodeUiAction.HideForgotDialog) },
+                onPositiveActionClick = { component.emitAction(EnterPasscodeUiAction.ForgotPasscode) },
+                onNegativeActionClick = { component.emitAction(EnterPasscodeUiAction.HideForgotDialog) }
+            )
+        }
     }
 }

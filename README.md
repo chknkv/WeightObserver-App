@@ -4,18 +4,12 @@
 
 This project includes helper scripts to easily build and run the application on Android and iOS devices.
 
-**Android**
-
-To build and run the Android application on a connected device or running emulator:
+To **build and run** the application on a connected device or running emulator / simulator:
 
 ```bash
+### Android
 ./scripts/android-run.sh
-```
 
-**iOS**
-
-To build and run the iOS application on a simulator or physical device:
-
-```bash
+### iOS
 ./scripts/ios-run.sh
 ```

@@ -17,11 +17,12 @@ package com.chknkv.coresession
 interface SessionRepository {
 
     /**
-     * Saves the hash of the user's local passcode for quick authentication
+     * Saves the hash of the user's local passcode for quick authentication.
+     * Pass `null` to remove the passcode.
      *
-     * @param hash A hashed representation of the user's passcode
+     * @param hash A hashed representation of the user's passcode, or null to clear.
      */
-    fun savePasscodeHash(hash: String)
+    fun savePasscodeHash(hash: String?)
 
     /**
      * Retrieves the stored passcode hash, if available
@@ -29,6 +30,11 @@ interface SessionRepository {
      * @return The hashed passcode string, or `null` if not stored
      */
     fun getPasscodeHash(): String?
+
+    /**
+     * Clears all session data.
+     */
+    fun clearAll()
 
     /**
      * Checks if the user has completed the initial authorization/welcome flow.

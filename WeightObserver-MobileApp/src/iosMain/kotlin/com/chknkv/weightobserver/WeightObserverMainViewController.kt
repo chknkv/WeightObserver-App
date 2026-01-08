@@ -1,5 +1,6 @@
 package com.chknkv.weightobserver
 
+import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
@@ -19,14 +20,16 @@ import org.koin.core.context.startKoin
  * The main and only entry point to the application.
  */
 fun WeightObserverMainViewController() = ComposeUIViewController(configure = { startKoinDI() }) {
-    Napier.base(DebugAntilog())
+    val root = remember {
+        Napier.base(DebugAntilog())
 
-    val sessionRepository = object : KoinComponent { val repo: SessionRepository = get() }.repo
+        val sessionRepository = object : KoinComponent { val repo: SessionRepository = get() }.repo
 
-    val root = WeightObserverRootComponentImpl(
-        componentContext = DefaultComponentContext(LifecycleRegistry()),
-        sessionRepository = sessionRepository
-    )
+        WeightObserverRootComponentImpl(
+            componentContext = DefaultComponentContext(LifecycleRegistry()),
+            sessionRepository = sessionRepository
+        )
+    }
     WeightObserverAppUiRoot(root)
 }
 

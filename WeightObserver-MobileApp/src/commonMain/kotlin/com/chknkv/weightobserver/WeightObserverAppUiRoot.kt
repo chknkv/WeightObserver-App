@@ -7,6 +7,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.chknkv.coredesignsystem.theming.AcTheme
 import com.chknkv.feature.welcome.presentation.RootWelcomeScreen
 import com.chknkv.feature.main.presentation.RootMainScreen
+import com.chknkv.feature.welcome.presentation.enterPasscode.EnterPasscodeScreen
 
 /**
  * The main UI-function, which contains the entire core UI of the application,
@@ -22,6 +23,7 @@ internal fun WeightObserverAppUiRoot(rootComponent: WeightObserverRootComponent)
             when (val child = it.instance) {
                 is WeightObserverRootComponent.RootChild.Auth -> RootWelcomeScreen(component = child.component)
                 is WeightObserverRootComponent.RootChild.Main -> RootMainScreen(component = child.component)
+                is WeightObserverRootComponent.RootChild.EnterPasscode -> EnterPasscodeScreen(component = child.component)
             }
         }
     }

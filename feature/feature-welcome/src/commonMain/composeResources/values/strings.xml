@@ -1,0 +1,24 @@
+<resources>
+    <!-- CreatePasscodeScreen region -->
+    <string name="create_passcode_title_1">Придумайте пароль для входа</string>
+    <string name="create_passcode_title_2">Повторите пароль для входа</string>
+    <string name="create_passcode_skip">Пропустить</string>
+    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в приложение</string>
+    <string name="create_passcode_snackbar_password_not_matched">Пароли должны совпадать</string>
+    <string name="create_passcode_alert_title">Пропустить создание пароля для входа</string>
+    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для входа? Это можно сделать позже в настройках</string>
+    <string name="create_passcode_alert_positive_action">Создать пароль</string>
+    <string name="create_passcode_alert_negative_action">Пропустить</string>
+    <!-- End CreatePasscodeScreen region -->
+
+    <!-- EnterPasscodeScreen region -->
+    <string name="enter_passcode_title">Введите пароль для входа в приложение</string>
+    <string name="enter_passcode_alert_title">Сбросить пароль для входа</string>
+    <string name="enter_passcode_alert_subtitle">Для восстановления пароля для входа придется сбросить все сохраненные данные. Сбросить?</string>
+    <string name="enter_passcode_alert_positive_action">Сбросить</string>
+    <string name="enter_passcode_alert_negative_action">Отмена</string>
+    <string name="enter_passcode_forget_passcode">Забыли код?</string>
+    <string name="enter_passcode_incorrect_passcode">Вы ввели некорректный пароль</string>
+    <!-- End EnterPasscodeScreen region -->
+
+</resources>
