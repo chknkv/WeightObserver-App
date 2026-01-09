@@ -1,4 +1,18 @@
 <resources>
+    <!-- InformationScreen region -->
+    <string name="information_title">Важная информация</string>
+    <string name="information_accept">Понятно</string>
+    <string name="information_accept_description">Нажимая кнопку «Понятно», вы соглашаетесь с условиями использования и подтверждаете, что ознакомились с информацией выше</string>
+    <string name="information_block_1_title">Не является медицинским ПО</string>
+    <string name="information_block_1_subtile">Приложение создано исключительно для самоконтроля веса. Для получения медицинских рекомендаций и планов лечения, пожалуйста, обратитесь к врачу</string>
+    <string name="information_block_2_title">Конфеденциальность данных</string>
+    <string name="information_block_2_subtile">Мы храним все данные локально на вашем устройстве. У нас нет доступа к вашей личной информации, и приложение не отправляет её на внешние серверы</string>
+    <string name="information_block_3_title">Защита доступа</string>
+    <string name="information_block_3_subtile">На следующем шаге вы сможете установить код-пароль. Ваши данные будете видеть только вы, даже если телефон попадет в чужие руки</string>
+    <string name="information_block_4_title">Сохранность данных</string>
+    <string name="information_block_4_subtile">При удалении приложения все данные будут безвозвратно стерты, так как мы не храним их в облаке. Учитывайте это при очистке телефона</string>
+    <!-- End InformationScreen region -->
+
     <!-- CreatePasscodeScreen region -->
     <string name="create_passcode_title_1">Придумайте пароль для входа</string>
     <string name="create_passcode_title_2">Повторите пароль для входа</string>
