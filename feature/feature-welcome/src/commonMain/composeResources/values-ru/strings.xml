@@ -1,0 +1,44 @@
+<resources>
+    <!-- InformationScreen region -->
+    <string name="information_title">Важная информация</string>
+    <string name="information_accept">Понятно</string>
+    <string name="information_accept_description">Нажимая кнопку «Понятно», вы соглашаетесь с условиями использования и подтверждаете, что ознакомились с информацией выше</string>
+    <string name="information_block_1_title">Не является медицинским ПО</string>
+    <string name="information_block_1_subtile">Приложение создано исключительно для самоконтроля веса. Для получения медицинских рекомендаций и планов лечения, пожалуйста, обратитесь к врачу</string>
+    <string name="information_block_2_title">Конфеденциальность данных</string>
+    <string name="information_block_2_subtile">Мы храним все данные локально на вашем устройстве. У нас нет доступа к вашей личной информации, и приложение не отправляет её на внешние серверы</string>
+    <string name="information_block_3_title">Защита доступа</string>
+    <string name="information_block_3_subtile">На следующем шаге вы сможете установить код-пароль. Ваши данные будете видеть только вы, даже если телефон попадет в чужие руки</string>
+    <string name="information_block_4_title">Сохранность данных</string>
+    <string name="information_block_4_subtile">При удалении приложения все данные будут безвозвратно стерты, так как мы не храним их в облаке. Учитывайте это при очистке телефона</string>
+    <!-- End InformationScreen region -->
+
+    <!-- CreatePasscodeScreen region -->
+    <string name="create_passcode_title_1">Придумайте пароль для входа</string>
+    <string name="create_passcode_title_2">Повторите пароль для входа</string>
+    <string name="create_passcode_skip">Пропустить</string>
+    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в приложение</string>
+    <string name="create_passcode_snackbar_password_not_matched">Пароли должны совпадать</string>
+    <string name="create_passcode_alert_title">Пропустить создание пароля для входа</string>
+    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для входа? Это можно сделать позже в настройках</string>
+    <string name="create_passcode_alert_positive_action">Создать пароль</string>
+    <string name="create_passcode_alert_negative_action">Пропустить</string>
+    <!-- End CreatePasscodeScreen region -->
+
+    <!-- EnterPasscodeScreen region -->
+    <string name="enter_passcode_title">Введите пароль для входа в приложение</string>
+    <string name="enter_passcode_alert_title">Сбросить пароль для входа</string>
+    <string name="enter_passcode_alert_subtitle">Для восстановления пароля для входа придется сбросить все сохраненные данные. Сбросить?</string>
+    <string name="enter_passcode_alert_positive_action">Сбросить</string>
+    <string name="enter_passcode_alert_negative_action">Отмена</string>
+    <string name="enter_passcode_forget_passcode">Забыли код?</string>
+    <string name="enter_passcode_incorrect_passcode">Вы ввели некорректный пароль</string>
+    <!-- End EnterPasscodeScreen region -->
+
+    <!-- SelectLanguageScreen region -->
+    <string name="select_language_title">Язык интерфейса</string>
+    <string name="select_language_subtitle">Выберите удобный для вас язык интерфейса. Если передумаете, его всегда можно сменить в настройках</string>
+    <string name="select_language_next">Далее</string>
+    <!-- End SelectLanguageScreen region -->
+
+</resources>

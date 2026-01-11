@@ -6,7 +6,6 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.chknkv.feature.welcome.presentation.createPasscode.CreatePasscodeScreen
 import com.chknkv.feature.welcome.presentation.information.InformationScreen
-import com.chknkv.feature.welcome.presentation.selectLanguage.SelectLanguageScreen
 
 /**
  * UI container for welcome screens.
@@ -23,7 +22,6 @@ fun RootWelcomeScreen(component: RootWelcomeComponent) {
         animation = stackAnimation(slide())
     ) {
         when (val child = it.instance) {
-            is RootWelcomeComponent.Child.SelectLanguage -> SelectLanguageScreen(child.component)
             is RootWelcomeComponent.Child.Information -> InformationScreen(child.component)
             is RootWelcomeComponent.Child.CreatePasscode -> CreatePasscodeScreen(child.component)
         }

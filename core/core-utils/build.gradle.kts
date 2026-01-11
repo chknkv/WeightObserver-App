@@ -23,6 +23,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlin.stdlib)
+            implementation(libs.multiplatform.settings)
         }
     }
 }

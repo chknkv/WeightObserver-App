@@ -13,17 +13,14 @@ import com.chknkv.feature.welcome.presentation.createPasscode.CreatePasscodeComp
 import com.chknkv.feature.welcome.presentation.createPasscode.CreatePasscodeComponentImpl
 import com.chknkv.feature.welcome.presentation.information.InformationComponent
 import com.chknkv.feature.welcome.presentation.information.InformationComponentImpl
-import com.chknkv.feature.welcome.presentation.selectLanguage.SelectLanguageComponent
-import com.chknkv.feature.welcome.presentation.selectLanguage.SelectLanguageComponentImpl
 import kotlinx.serialization.Serializable
 
 /**
  * Root component for the Welcome Feature flow.
  *
  * Manages navigation between onboarding screens:
- * 1. [SelectLanguageComponent] - Language selection.
- * 2. [InformationComponent] - Information screen.
- * 3. [CreatePasscodeComponent] - Passcode creation.
+ * 1. [InformationComponent] - Information screen.
+ * 2. [CreatePasscodeComponent] - Passcode creation.
  */
 interface RootWelcomeComponent {
     /**
@@ -45,12 +42,6 @@ interface RootWelcomeComponent {
      * Defines possible child components (screens) in the welcome flow.
      */
     sealed class Child {
-
-        /**
-         * Language selection screen.
-         * @property component Instance of the language selection component.
-         */
-        data class SelectLanguage(val component: SelectLanguageComponent) : Child()
 
         /**
          * Information screen.
@@ -84,7 +75,7 @@ class RootWelcomeComponentImpl(
     override val childStack: Value<ChildStack<*, RootWelcomeComponent.Child>> = childStack(
         source = navigation,
         serializer = Config.serializer(),
-        initialConfiguration = Config.SelectLanguage,
+        initialConfiguration = Config.Information,
         handleBackButton = true,
         childFactory = ::child
     )
@@ -94,13 +85,6 @@ class RootWelcomeComponentImpl(
      */
     private fun child(config: Config, componentContext: ComponentContext): RootWelcomeComponent.Child =
         when (config) {
-            Config.SelectLanguage -> RootWelcomeComponent.Child.SelectLanguage(
-                SelectLanguageComponentImpl(
-                    componentContext = componentContext,
-                    onNext = { navigation.pushNew(Config.Information) }
-                )
-            )
-
             Config.Information -> RootWelcomeComponent.Child.Information(
                 InformationComponentImpl(
                     componentContext = componentContext,
@@ -119,7 +103,7 @@ class RootWelcomeComponentImpl(
         }
 
     override fun resetToWelcome() {
-        navigation.replaceAll(Config.SelectLanguage)
+        navigation.replaceAll(Config.Information)
     }
 
     override fun onCompleteAuth() {
@@ -132,8 +116,6 @@ class RootWelcomeComponentImpl(
      */
     @Serializable
     private sealed interface Config {
-        @Serializable
-        data object SelectLanguage : Config
 
         @Serializable
         data object Information : Config
