@@ -36,6 +36,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.napier)
+            implementation(libs.kotlinx.datetime)
 
             implementation(project(":core:core-designsystem"))
             implementation(project(":core:core-utils"))

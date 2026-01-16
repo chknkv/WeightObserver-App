@@ -1,0 +1,17 @@
+CREATE TABLE WeightMeasurement (
+    date TEXT NOT NULL PRIMARY KEY,
+    weight REAL NOT NULL
+);
+
+insertWeight:
+INSERT OR REPLACE INTO WeightMeasurement(date, weight)
+VALUES (?, ?);
+
+selectWeightsByRange:
+SELECT *
+FROM WeightMeasurement
+WHERE date >= ? AND date <= ?
+ORDER BY date ASC;
+
+deleteAll:
+DELETE FROM WeightMeasurement;

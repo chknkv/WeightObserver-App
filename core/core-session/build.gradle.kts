@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.androidLint)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -34,6 +35,9 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.multiplatform.settings)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.sqldelight.primitive)
         }
 
         androidMain.dependencies {
@@ -42,6 +46,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.multiplatform.settings)
+            implementation(libs.sqldelight.android)
         }
 
         iosMain.dependencies {
@@ -49,6 +54,15 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.multiplatform.settings)
+            implementation(libs.sqldelight.native)
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("WeightDatabase") {
+            packageName.set("com.chknkv.coresession.db")
         }
     }
 }

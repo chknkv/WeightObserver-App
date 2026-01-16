@@ -23,6 +23,7 @@ val featureMainModule = module {
         RootMainComponentImpl(
             componentContext = componentContext,
             sessionRepository = get(),
+            weightRepository = get(),
             onSignOutRequested = onSignOut
         )
     }

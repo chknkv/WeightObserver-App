@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
@@ -54,7 +53,6 @@ fun InformationScreen(component: InformationComponent) {
             .fillMaxSize()
             .background(AcTokens.Background0.getThemedColor())
             .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
-            .statusBarsPadding()
             .imePadding(),
         contentColor = AcTokens.Background0.getThemedColor(),
         containerColor = AcTokens.Background0.getThemedColor()

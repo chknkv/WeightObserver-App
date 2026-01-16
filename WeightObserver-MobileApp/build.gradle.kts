@@ -22,8 +22,9 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "WeightObserver_App"
-            isStatic = true
+            baseName = "WeightObserverApp"
+            isStatic = false
+            linkerOpts("-lsqlite3")
         }
     }
 

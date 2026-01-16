@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import WeightObserver_App
+import WeightObserverApp
 
 struct ComposeView: UIViewControllerRepresentable {
 

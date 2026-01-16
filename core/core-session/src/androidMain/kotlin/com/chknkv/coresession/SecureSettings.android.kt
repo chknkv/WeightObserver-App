@@ -3,6 +3,9 @@ package com.chknkv.coresession
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import com.chknkv.coresession.db.WeightDatabase
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.android.ext.koin.androidContext
@@ -37,10 +40,8 @@ actual val coreStorageModule: Module = module {
         }
 
         try {
-            // Основная попытка создать защищённое хранилище
             SharedPreferencesSettings(createSecurePrefs())
         } catch (e: Exception) {
-            // Если ключ или зашифрованные данные повреждены — пересоздаём
             if (e is javax.crypto.AEADBadTagException || e.cause is javax.crypto.AEADBadTagException) {
                 context.deleteSharedPreferences("WeightObserver_secure_prefs")
                 SharedPreferencesSettings(createSecurePrefs())
@@ -48,5 +49,9 @@ actual val coreStorageModule: Module = module {
                 throw e
             }
         }
+    }
+
+    single<SqlDriver> {
+        AndroidSqliteDriver(WeightDatabase.Schema, androidContext(), "weight.db")
     }
 }

@@ -1,5 +1,6 @@
 package com.chknkv.coresession
 
+import com.chknkv.coresession.db.WeightDatabase
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -16,9 +17,14 @@ expect val coreStorageModule: Module
 val coreSessionModule = module {
     single<SessionRepository> {
         SessionRepositoryImpl(
-            secureSettings = get(SECURE_SETTINGS_QUALIFIER)
+            secureSettings = get(SECURE_SETTINGS_QUALIFIER),
+            weightRepository = get()
         )
     }
+
+    single { WeightDatabase(get()) }
+
+    single<WeightRepository> { WeightRepositoryImpl(get()) }
 }
 
 /**
