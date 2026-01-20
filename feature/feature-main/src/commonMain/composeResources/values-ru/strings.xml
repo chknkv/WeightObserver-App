@@ -1,0 +1,32 @@
+<resources>
+    <!-- MainScreen Region -->
+    <string name="main_last_saved_record">Последнее измерение: %1$s</string>
+    <string name="main_add_new_measurement">Добавить измерение</string>
+    <string name="main_weight_unit">кг</string>
+    <!-- End MainScreen Region -->
+
+    <!-- Settings Region -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_clear_data">Очистить данные</string>
+    <string name="settings_clear_data_title">Вы уверены, что хотите очистить данные?</string>
+    <string name="settings_clear_data_subtitle">Очистка данных приведет к полному сбросу всех записей. Восстановить данные не получится</string>
+    <string name="settings_clear_data_confirm">Очистить</string>
+    <string name="settings_clear_data_cancel">Отмена</string>
+    <!-- End Settings Region -->
+
+    <!-- Measurement Region -->
+    <string name="measurement_title">Добавить новое измерение</string>
+    <string name="measurement_cancel">Отмена</string>
+    <string name="measurement_add">Добавить</string>
+    <string name="measurement_privacy_policy">Все данные о весе, которые вы вводите, остаются в памяти устройства. Мы не отправляем их на сторонние серверы</string>
+    <!-- End Measurement Region -->
+
+    <!-- Statistic Region -->
+    <string name="statistic_title">Детальная статистика</string>
+    <string name="statistic_show">Посмотреть детальную статистику</string>
+    <string name="statistic_ok">Понятно</string>
+    <string name="statistic_no_data">Нет данных</string>
+    <string name="statistic_medical_disclaimer">Все данные и статистические показатели не несут медицинских целей. Они служат лишь для удобного личного контроля</string>
+    <!-- End Statistic Region -->
+
+</resources>

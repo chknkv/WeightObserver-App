@@ -1,6 +1,8 @@
 package com.chknkv.feature.main.di
 
 import com.arkivanov.decompose.ComponentContext
+import com.chknkv.feature.main.domain.MainScreenInteractor
+import com.chknkv.feature.main.domain.MainScreenInteractorImpl
 import com.chknkv.feature.main.presentation.RootMainComponent
 import com.chknkv.feature.main.presentation.RootMainComponentImpl
 import org.koin.dsl.module
@@ -13,17 +15,20 @@ import org.koin.dsl.module
  */
 val featureMainModule = module {
 
+    single<MainScreenInteractor> {
+        MainScreenInteractorImpl(
+            weightRepository = get(),
+            sessionRepository = get()
+        )
+    }
+
     /**
      * Creates an instance of [RootMainComponent].
-     *
-     * @param componentContext Decompose component context.
-     * @param onSignOut Callback invoked when sign-out is requested.
      */
     factory<RootMainComponent> { (componentContext: ComponentContext, onSignOut: () -> Unit) ->
         RootMainComponentImpl(
             componentContext = componentContext,
-            sessionRepository = get(),
-            weightRepository = get(),
+            mainScreenInteractor = get(),
             onSignOutRequested = onSignOut
         )
     }

@@ -35,6 +35,16 @@ interface WeightRepository {
     suspend fun getWeights(startDate: LocalDate, endDate: LocalDate): List<WeightRecord>
 
     /**
+     * Retrieves all weight records with pagination.
+     * The records are sorted by date descending.
+     *
+     * @param limit The maximum number of records to return.
+     * @param offset The number of records to skip.
+     * @return List of [WeightRecord]s.
+     */
+    suspend fun getAllWeights(limit: Long, offset: Long): List<WeightRecord>
+
+    /**
      * Clears all weight measurements from the database.
      */
     suspend fun clearWeights()
@@ -56,6 +66,15 @@ internal class WeightRepositoryImpl(database: WeightDatabase) : WeightRepository
             startDate.toString(),
             endDate.toString()
         ).executeAsList().map {
+            WeightRecord(
+                date = LocalDate.parse(it.date),
+                weight = it.weight
+            )
+        }
+    }
+
+    override suspend fun getAllWeights(limit: Long, offset: Long): List<WeightRecord> = withContext(Dispatchers.IO) {
+        queries.selectAllWeights(limit, offset).executeAsList().map {
             WeightRecord(
                 date = LocalDate.parse(it.date),
                 weight = it.weight

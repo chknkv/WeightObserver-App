@@ -25,7 +25,7 @@ fun Module(
         modifier = modifier
             .fillMaxWidth()
             .padding(outPaddingValues)
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(AcTokens.Module.getThemedColor())
     ) {
         Box(modifier = Modifier.padding(innerPaddingValues)) {

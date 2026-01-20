@@ -45,7 +45,7 @@ fun DualAcButtonVertical(
 }
 
 @Composable
-fun DualBlueberryHorizontal(
+fun DualAcButtonHorizontal(
     modifier: Modifier = Modifier,
     firstButtonText: String,
     secondButtonText: String,
@@ -53,6 +53,8 @@ fun DualBlueberryHorizontal(
     secondButtonClick: () -> Unit,
     firstButtonStyle: AcButtonStyle = AcButtonStyle.Negative,
     secondButtonStyle: AcButtonStyle = AcButtonStyle.Standard,
+    firstButtonEnabled: Boolean = true,
+    secondButtonEnabled: Boolean = true
 ) {
     Row(
         modifier = modifier
@@ -65,7 +67,8 @@ fun DualBlueberryHorizontal(
             text = firstButtonText,
             style = firstButtonStyle,
             onClick = firstButtonClick,
-            horizontalPadding = 0.dp
+            horizontalPadding = 0.dp,
+            isEnabled = firstButtonEnabled
         )
 
         Spacer(modifier = modifier.width(12.dp))
@@ -75,7 +78,8 @@ fun DualBlueberryHorizontal(
             text = secondButtonText,
             style = secondButtonStyle,
             onClick = secondButtonClick,
-            horizontalPadding = 0.dp
+            horizontalPadding = 0.dp,
+            isEnabled = secondButtonEnabled
         )
     }
 }

@@ -11,10 +11,14 @@ enum class AcTokens {
 
     Background0,
 
+    BottomSheetHook,
+
     ButtonDisabled,
     ButtonStandard,
     ButtonTransparent,
     ButtonWarning,
+
+    Divider,
 
     FinanceCardDebts,
     FinanceCardGoals,
@@ -24,6 +28,9 @@ enum class AcTokens {
     IconAddTransactionButton,
     IconPrimary,
     IconSecondary,
+    IconTrendDown,
+    IconTrendUp,
+    IconTrendFlat,
     IconWarning,
 
     Module,

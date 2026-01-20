@@ -60,7 +60,7 @@ fun AlertAction(
                         maxLines = 2,
                         textAlign = TextAlign.Start,
                         style = TextStyle(
-                            color = AcTokens.TextSecondary.getThemedColor(),
+                            color = AcTokens.TextPrimary.getThemedColor(),
                             fontSize = 16.sp,
                             lineHeight = 20.sp,
                             letterSpacing = -(0.048).em,

@@ -84,7 +84,7 @@ fun CellBase(
             if (isDivider) {
                 HorizontalDivider(
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                    color = AcTokens.IconSecondary.getThemedColor()
+                    color = AcTokens.Divider.getThemedColor()
                 )
             }
         }

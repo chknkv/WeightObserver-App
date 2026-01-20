@@ -1,0 +1,31 @@
+<resources>
+    <!-- MainScreen Region -->
+    <string name="main_last_saved_record">Last measurement: %1$s</string>
+    <string name="main_add_new_measurement">Add measurement</string>
+    <string name="main_weight_unit">kg</string>
+    <!-- End MainScreen Region -->
+
+    <!-- Settings Region -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_clear_data">Clear data</string>
+    <string name="settings_clear_data_title">Are you sure you want to clear data?</string>
+    <string name="settings_clear_data_subtitle">Clearing data will lead to a complete reset of all records. Data cannot be restored</string>
+    <string name="settings_clear_data_confirm">Clear</string>
+    <string name="settings_clear_data_cancel">Cancel</string>
+    <!-- End Settings Region -->
+
+    <!-- Measurement Region -->
+    <string name="measurement_title">Add new measurement</string>
+    <string name="measurement_cancel">Cancel</string>
+    <string name="measurement_add">Add</string>
+    <string name="measurement_privacy_policy">All weight data you enter remains on your device. We do not send it to third-party servers</string>
+    <!-- End Measurement Region -->
+
+    <!-- Statistic Region -->
+    <string name="statistic_title">Detailed statistics</string>
+    <string name="statistic_show">Show detailed statistics</string>
+    <string name="statistic_ok">Ok</string>
+    <string name="statistic_no_data">No data</string>
+    <string name="statistic_medical_disclaimer">All data and statistics are not intended for medical purposes. They serve only for convenient personal monitoring</string>
+    <!-- End Statistic Region -->
+</resources>

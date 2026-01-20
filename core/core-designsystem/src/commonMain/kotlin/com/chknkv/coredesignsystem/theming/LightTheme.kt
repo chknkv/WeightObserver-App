@@ -9,10 +9,14 @@ fun lightThemeTokensMap(): Map<AcTokens, Color> = mapOf(
 
     AcTokens.Background0 to White3,
 
+    AcTokens.BottomSheetHook to Graphite2,
+
     AcTokens.ButtonDisabled to Gray1,
     AcTokens.ButtonStandard to Black1,
     AcTokens.ButtonTransparent to Transparent,
     AcTokens.ButtonWarning to Orange1,
+
+    AcTokens.Divider to Gray2,
 
     AcTokens.FinanceCardDebts to Red6,
     AcTokens.FinanceCardGoals to Graphite6,
@@ -22,6 +26,9 @@ fun lightThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.IconAddTransactionButton to White1,
     AcTokens.IconPrimary to Black1,
     AcTokens.IconSecondary to Gray2,
+    AcTokens.IconTrendDown to Green11,
+    AcTokens.IconTrendUp to Red6,
+    AcTokens.IconTrendFlat to Black2,
     AcTokens.IconWarning to Orange1,
 
     AcTokens.Module to White1,

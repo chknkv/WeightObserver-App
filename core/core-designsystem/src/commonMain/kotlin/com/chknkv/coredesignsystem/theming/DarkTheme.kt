@@ -7,12 +7,16 @@ import com.chknkv.coredesignsystem.*
 fun darkThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.AppBarNavigationButton to White1,
 
-    AcTokens.Background0 to Graphite1,
+    AcTokens.Background0 to Graphite5,
+
+    AcTokens.BottomSheetHook to Gray1,
 
     AcTokens.ButtonDisabled to Gray2,
     AcTokens.ButtonStandard to White1,
     AcTokens.ButtonTransparent to Transparent,
     AcTokens.ButtonWarning to Orange1,
+
+    AcTokens.Divider to Gray2,
 
     AcTokens.FinanceCardDebts to Red6,
     AcTokens.FinanceCardGoals to Graphite6,
@@ -22,9 +26,12 @@ fun darkThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.IconAddTransactionButton to Black1,
     AcTokens.IconPrimary to White1,
     AcTokens.IconSecondary to Gray2,
+    AcTokens.IconTrendDown to Green11,
+    AcTokens.IconTrendUp to Red6,
+    AcTokens.IconTrendFlat to Gray2,
     AcTokens.IconWarning to Orange1,
 
-    AcTokens.Module to Graphite5,
+    AcTokens.Module to Graphite1,
 
     AcTokens.NavigationBarColor to Graphite5,
     AcTokens.NavigationBarSelectedColor to White1,

@@ -13,5 +13,11 @@ FROM WeightMeasurement
 WHERE date >= ? AND date <= ?
 ORDER BY date ASC;
 
+selectAllWeights:
+SELECT *
+FROM WeightMeasurement
+ORDER BY date DESC
+LIMIT :limit OFFSET :offset;
+
 deleteAll:
 DELETE FROM WeightMeasurement;
