@@ -1,6 +1,7 @@
 package com.chknkv.weightobserver
 
 import android.app.Application
+import com.chknkv.coresession.LanguageManager
 import com.chknkv.coresession.coreSessionModule
 import com.chknkv.coresession.coreStorageModule
 import com.chknkv.feature.main.di.featureMainModule
@@ -29,6 +30,6 @@ class WeightObserverApplication : Application() {
                 featureWelcomeModule,
                 featureMainModule
             )
-        }
+        }.koin.get<LanguageManager>().init()
     }
 }

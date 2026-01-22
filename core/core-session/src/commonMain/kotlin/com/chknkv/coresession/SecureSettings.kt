@@ -25,6 +25,10 @@ val coreSessionModule = module {
     single { WeightDatabase(get()) }
 
     single<WeightRepository> { WeightRepositoryImpl(get()) }
+
+    single<LanguageManager> {
+        LanguageManagerImpl(settings = get(SECURE_SETTINGS_QUALIFIER))
+    }
 }
 
 /**

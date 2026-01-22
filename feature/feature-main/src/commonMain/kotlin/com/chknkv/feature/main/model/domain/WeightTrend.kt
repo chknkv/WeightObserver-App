@@ -1,4 +1,4 @@
-package com.chknkv.feature.main.domain
+package com.chknkv.feature.main.model.domain
 
 import androidx.compose.runtime.Stable
 import com.chknkv.coresession.WeightRecord

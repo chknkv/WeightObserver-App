@@ -38,6 +38,8 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.sqldelight.coroutines)
             implementation(libs.sqldelight.primitive)
+
+            implementation(project(":core:core-utils"))
         }
 
         androidMain.dependencies {

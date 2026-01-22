@@ -12,7 +12,34 @@
     <string name="settings_clear_data_subtitle">Очистка данных приведет к полному сбросу всех записей. Восстановить данные не получится</string>
     <string name="settings_clear_data_confirm">Очистить</string>
     <string name="settings_clear_data_cancel">Отмена</string>
-    <!-- End Settings Region -->
+    <string name="settings_info_title">Информация</string>
+    <string name="settings_info_subtitle">Ознакомьтесь с политикой конфиденциальности, условиями использования и другой информацией</string>
+    <string name="settings_passcode_title">Код-пароль</string>
+    <string name="settings_passcode_subtitle">Установите или измените 5-значный код-пароль, чтобы защитить ваши данные о весе от посторонних глаз</string>
+    <string name="settings_language_title">Язык</string>
+    <string name="settings_language_subtitle">Выберите предпочтительный язык интерфейса приложения</string>
+    <string name="settings_opensource_title">Open Source</string>
+    <string name="settings_opensource_subtitle">Изучите полный исходный код этого проекта в нашем репозитории на GitHub</string>
+     <!-- End Settings Region -->
+
+    <!-- Settings-Information Region -->
+    <string name="information_title">Важная информация</string>
+    <string name="information_accept">Понятно</string>
+    <string name="information_block_1_title">Не является медицинским ПО</string>
+    <string name="information_block_1_subtitle">Приложение создано исключительно для самоконтроля веса. Для получения медицинских рекомендаций и планов лечения, пожалуйста, обратитесь к врачу</string>
+    <string name="information_block_2_title">Конфеденциальность данных</string>
+    <string name="information_block_2_subtitle">Мы храним все данные локально на вашем устройстве. У нас нет доступа к вашей личной информации, и приложение не отправляет её на внешние серверы</string>
+    <string name="information_block_3_title">Защита доступа</string>
+    <string name="information_block_3_subtitle">На следующем шаге вы сможете установить код-пароль. Ваши данные будете видеть только вы, даже если телефон попадет в чужие руки</string>
+    <string name="information_block_4_title">Сохранность данных</string>
+    <string name="information_block_4_subtitle">При удалении приложения все данные будут безвозвратно стерты, так как мы не храним их в облаке. Учитывайте это при очистке телефона</string>
+    <!-- End Settings-Information Region -->
+
+    <!-- Settings-Languages Region -->
+    <string name="settings_language_selection_title">Выбор языка</string>
+    <string name="settings_language_selection_subtitle">Выберите язык приложения. Его также можно настроить в настройках устойства</string>
+    <string name="settings_language_accept">Понятно</string>
+    <!-- End Settings-Languages Region -->
 
     <!-- Measurement Region -->
     <string name="measurement_title">Добавить новое измерение</string>
@@ -29,4 +56,24 @@
     <string name="statistic_medical_disclaimer">Все данные и статистические показатели не несут медицинских целей. Они служат лишь для удобного личного контроля</string>
     <!-- End Statistic Region -->
 
+    <!-- Passcode Settings Region -->
+    <string name="create_passcode_title_1">Придумайте пароль для входа</string>
+    <string name="create_passcode_title_2">Повторите пароль для входа</string>
+    <string name="create_passcode_skip">Пропустить</string>
+    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в приложение</string>
+    <string name="create_passcode_snackbar_password_not_matched">Пароли должны совпадать</string>
+    <string name="create_passcode_alert_title">Пропустить создание пароля для входа</string>
+    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для входа? Это можно сделать позже в настройках</string>
+    <string name="create_passcode_alert_positive_action">Создать пароль</string>
+    <string name="create_passcode_alert_negative_action">Пропустить</string>
+
+    <string name="enter_passcode_title">Введите пароль для изменения настроек</string>
+    <string name="enter_passcode_alert_title">Сбросить пароль для входа</string>
+    <string name="enter_passcode_alert_subtitle">Для восстановления пароля для входа придется сбросить все сохраненные данные. Сбросить?</string>
+    <string name="enter_passcode_alert_positive_action">Сбросить</string>
+    <string name="enter_passcode_alert_negative_action">Отмена</string>
+    <string name="enter_passcode_forget_passcode">Забыли код?</string>
+    <string name="enter_passcode_incorrect_passcode">Вы ввели некорректный пароль</string>
+    <string name="passcode_created_success">Новый пароль был успешно создан</string>
+    <!-- End Passcode Settings Region -->
 </resources>

@@ -36,8 +36,8 @@ import com.chknkv.coredesignsystem.typography.Body1
 import com.chknkv.coredesignsystem.typography.Footnote1Secondary
 import com.chknkv.coredesignsystem.typography.Headline3
 import com.chknkv.coreutils.toFormattedString
-import com.chknkv.feature.main.domain.WeightRecordWithTrend
-import com.chknkv.feature.main.domain.WeightTrend
+import com.chknkv.feature.main.model.domain.WeightRecordWithTrend
+import com.chknkv.feature.main.model.domain.WeightTrend
 import com.chknkv.feature.main.model.presentation.DetailedStatisticUiResult
 import com.chknkv.feature.main.model.presentation.MainAction
 import org.jetbrains.compose.resources.painterResource

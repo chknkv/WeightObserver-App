@@ -15,19 +15,38 @@ import com.chknkv.coredesignsystem.alertAction.AlertAction
 import com.chknkv.coredesignsystem.alertAction.AlertActionData
 import com.chknkv.coredesignsystem.buttons.AcButton
 import com.chknkv.coredesignsystem.buttons.AcButtonStyle
+import com.chknkv.coredesignsystem.cellBase.CellBase
 import com.chknkv.coredesignsystem.theming.AcTokens
 import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coredesignsystem.typography.Headline3
+import com.chknkv.coreutils.openUrl
 import com.chknkv.feature.main.model.presentation.MainAction
+import com.chknkv.feature.main.model.presentation.PasscodeSettingsUiEffect
 import com.chknkv.feature.main.model.presentation.SettingsUiResult
+import com.chknkv.feature.main.presentation.components.settings.InformationBottomSheet
+import com.chknkv.feature.main.presentation.components.settings.LanguageBottomSheet
+import com.chknkv.feature.main.presentation.components.settings.PasscodeSettingsBottomSheet
+import kotlinx.coroutines.flow.SharedFlow
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_main.generated.resources.Res
+import weightobserver_project.feature.feature_main.generated.resources.ic_code
 import weightobserver_project.feature.feature_main.generated.resources.settings_clear_data
 import weightobserver_project.feature.feature_main.generated.resources.settings_clear_data_cancel
 import weightobserver_project.feature.feature_main.generated.resources.settings_clear_data_confirm
 import weightobserver_project.feature.feature_main.generated.resources.settings_clear_data_subtitle
 import weightobserver_project.feature.feature_main.generated.resources.settings_clear_data_title
 import weightobserver_project.feature.feature_main.generated.resources.settings_title
+import weightobserver_project.feature.feature_main.generated.resources.ic_info
+import weightobserver_project.feature.feature_main.generated.resources.ic_language
+import weightobserver_project.feature.feature_main.generated.resources.ic_passcode
+import weightobserver_project.feature.feature_main.generated.resources.settings_info_title
+import weightobserver_project.feature.feature_main.generated.resources.settings_info_subtitle
+import weightobserver_project.feature.feature_main.generated.resources.settings_passcode_title
+import weightobserver_project.feature.feature_main.generated.resources.settings_passcode_subtitle
+import weightobserver_project.feature.feature_main.generated.resources.settings_language_title
+import weightobserver_project.feature.feature_main.generated.resources.settings_language_subtitle
+import weightobserver_project.feature.feature_main.generated.resources.settings_opensource_title
+import weightobserver_project.feature.feature_main.generated.resources.settings_opensource_subtitle
 
 /**
  * Displays a bottom sheet with application settings.
@@ -39,12 +58,13 @@ import weightobserver_project.feature.feature_main.generated.resources.settings_
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingBottomSheet(
-    onAction: (MainAction.SettingsAction) -> Unit,
+    onAction: (MainAction) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    settingsUiResult: SettingsUiResult
+    settingsUiResult: SettingsUiResult,
+    passcodeEffect: SharedFlow<PasscodeSettingsUiEffect>
 ) {
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -68,10 +88,50 @@ fun SettingBottomSheet(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-
             Headline3(
                 text = stringResource(Res.string.settings_title),
                 modifier = Modifier.fillMaxWidth()
+            )
+
+            CellBase(
+                modifier = Modifier.padding(top = 12.dp),
+                iconRes = Res.drawable.ic_info,
+                title = stringResource(Res.string.settings_info_title),
+                subtitle = stringResource(Res.string.settings_info_subtitle),
+                maxSubtitle = 3,
+                iconTint = AcTokens.IconPrimary.getThemedColor(),
+                onClick = { onAction(MainAction.SettingsAction.ShowInformation) }
+            )
+
+            CellBase(
+                modifier = Modifier.padding(vertical = 8.dp),
+                iconRes = Res.drawable.ic_code,
+                title = stringResource(Res.string.settings_opensource_title),
+                subtitle = stringResource(Res.string.settings_opensource_subtitle),
+                maxSubtitle = 3,
+                iconTint = AcTokens.IconPrimary.getThemedColor(),
+                onClick = { openUrl("https://github.com/chknkv/WeightObserver-App") }
+            )
+
+            CellBase(
+                modifier = Modifier.padding(top = 8.dp),
+                iconRes = Res.drawable.ic_passcode,
+                title = stringResource(Res.string.settings_passcode_title),
+                subtitle = stringResource(Res.string.settings_passcode_subtitle),
+                maxSubtitle = 3,
+                iconTint = AcTokens.IconPrimary.getThemedColor(),
+                onClick = { onAction(MainAction.SettingsAction.ShowPasscodeSettings) }
+            )
+
+            CellBase(
+                modifier = Modifier.padding(top = 8.dp),
+                iconRes = Res.drawable.ic_language,
+                title = stringResource(Res.string.settings_language_title),
+                subtitle = stringResource(Res.string.settings_language_subtitle),
+                maxSubtitle = 3,
+                iconTint = AcTokens.IconPrimary.getThemedColor(),
+                onClick = { onAction(MainAction.SettingsAction.ShowLanguageSelection) },
+                isDivider = false
             )
 
             AcButton(
@@ -93,6 +153,27 @@ fun SettingBottomSheet(
             onDismissClick = { onAction.invoke(MainAction.SettingsAction.HideClearDataConfirmation) },
             onPositiveActionClick = { onAction.invoke(MainAction.SettingsAction.HideClearDataConfirmation) },
             onNegativeActionClick = { onAction.invoke(MainAction.SettingsAction.SignOut) }
+        )
+    }
+
+    if (settingsUiResult.isInformationVisible) {
+        InformationBottomSheet(
+            onDismissRequest = { onAction.invoke(MainAction.SettingsAction.HideInformation) }
+        )
+    }
+
+    if (settingsUiResult.isLanguageSelectionVisible) {
+        LanguageBottomSheet(
+            onDismissRequest = { onAction.invoke(MainAction.SettingsAction.HideLanguageSelection) }
+        )
+    }
+
+    if (settingsUiResult.isPasscodeSettingsVisible) {
+        PasscodeSettingsBottomSheet(
+            uiResult = settingsUiResult.passcodeSettingsUiResult,
+            effects = passcodeEffect,
+            onAction = { onAction(it) },
+            onDismissRequest = { onAction(MainAction.SettingsAction.HidePasscodeSettings) }
         )
     }
 }

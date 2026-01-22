@@ -12,7 +12,34 @@
     <string name="settings_clear_data_subtitle">Clearing data will lead to a complete reset of all records. Data cannot be restored</string>
     <string name="settings_clear_data_confirm">Clear</string>
     <string name="settings_clear_data_cancel">Cancel</string>
+    <string name="settings_info_title">Information</string>
+    <string name="settings_info_subtitle">Read our privacy policy, terms of use, and other legal information</string>
+    <string name="settings_passcode_title">Passcode</string>
+    <string name="settings_passcode_subtitle">Set up or change your 5-digit passcode to protect your personal weight data from unauthorized access</string>
+    <string name="settings_language_title">Language</string>
+    <string name="settings_language_subtitle">Select your preferred language for the application interface</string>
+    <string name="settings_opensource_title">Open Source</string>
+    <string name="settings_opensource_subtitle">Explore the full source code of this project on our GitHub repository</string>
     <!-- End Settings Region -->
+
+    <!-- Settings-Information Region -->
+    <string name="information_title">Important Information</string>
+    <string name="information_accept">Got it</string>
+    <string name="information_block_1_title">Not Medical Software</string>
+    <string name="information_block_1_subtitle">The application is created solely for self-monitoring of weight. For medical advice and treatment plans, please consult a doctor</string>
+    <string name="information_block_2_title">Data Privacy</string>
+    <string name="information_block_2_subtitle">We store all data locally on your device. We do not have access to your personal information, and the application does not send it to external servers</string>
+    <string name="information_block_3_title">Access Protection</string>
+    <string name="information_block_3_subtitle">In the next step, you can set a passcode. Only you will see your data, even if your phone falls into the wrong hands</string>
+    <string name="information_block_4_title">Data Safety</string>
+    <string name="information_block_4_subtitle">When you delete the application, all data will be permanently erased as we do not store it in the cloud. Please keep this in mind when clearing your phone</string>
+    <!-- End Settings-Information Region -->
+
+    <!-- Settings-Languages Region -->
+    <string name="settings_language_selection_title">Language selection</string>
+    <string name="settings_language_selection_subtitle">Select the application language. It can also be configured in the device settings.</string>
+    <string name="settings_language_accept">Got it</string>
+    <!-- End Settings-Languages Region -->
 
     <!-- Measurement Region -->
     <string name="measurement_title">Add new measurement</string>
@@ -28,4 +55,25 @@
     <string name="statistic_no_data">No data</string>
     <string name="statistic_medical_disclaimer">All data and statistics are not intended for medical purposes. They serve only for convenient personal monitoring</string>
     <!-- End Statistic Region -->
+
+    <!-- Passcode Settings Region -->
+    <string name="create_passcode_title_1">Create a login passcode</string>
+    <string name="create_passcode_title_2">Repeat login passcode</string>
+    <string name="create_passcode_skip">Skip</string>
+    <string name="create_passcode_subtitle">This passcode will be used to log in to the application</string>
+    <string name="create_passcode_snackbar_password_not_matched">Passcodes must match</string>
+    <string name="create_passcode_alert_title">Skip creating a login passcode</string>
+    <string name="create_passcode_alert_subtitle">Are you sure you want to skip creating a login passcode? You can do this later in settings</string>
+    <string name="create_passcode_alert_positive_action">Create passcode</string>
+    <string name="create_passcode_alert_negative_action">Skip</string>
+
+    <string name="enter_passcode_title">Enter passcode to change settings</string>
+    <string name="enter_passcode_alert_title">Reset login passcode</string>
+    <string name="enter_passcode_alert_subtitle">To reset the login passcode, all saved data will have to be reset. Reset?</string>
+    <string name="enter_passcode_alert_positive_action">Reset</string>
+    <string name="enter_passcode_alert_negative_action">Cancel</string>
+    <string name="enter_passcode_forget_passcode">Forgot code?</string>
+    <string name="enter_passcode_incorrect_passcode">You entered an incorrect passcode</string>
+    <string name="passcode_created_success">New passcode successfully created</string>
+    <!-- End Passcode Settings Region -->
 </resources>

@@ -4,6 +4,8 @@ import com.chknkv.coresession.SessionRepository
 import com.chknkv.coresession.WeightRecord
 import com.chknkv.coresession.WeightRepository
 import com.chknkv.coreutils.getCurrentDate
+import com.chknkv.feature.main.model.domain.WeightRecordWithTrend
+import com.chknkv.feature.main.model.domain.WeightTrend
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.minus
 
@@ -40,6 +42,21 @@ interface MainScreenInteractor {
      * Signs out the current user and clears the session data.
      */
     suspend fun signOut()
+
+    /**
+     * Checks if a passcode is set.
+     */
+    suspend fun hasPasscode(): Boolean
+
+    /**
+     * Checks if the entered passcode matches the stored one.
+     */
+    suspend fun checkPasscode(passcode: String): Boolean
+
+    /**
+     * Saves or removes the passcode.
+     */
+    suspend fun savePasscode(passcode: String?)
 }
 
 /**
@@ -92,5 +109,17 @@ class MainScreenInteractorImpl(
     override suspend fun signOut() {
         weightRepository.clearWeights()
         sessionRepository.clearAll()
+    }
+
+    override suspend fun hasPasscode(): Boolean {
+        return sessionRepository.getPasscodeHash() != null
+    }
+
+    override suspend fun checkPasscode(passcode: String): Boolean {
+        return sessionRepository.getPasscodeHash() == passcode
+    }
+
+    override suspend fun savePasscode(passcode: String?) {
+        sessionRepository.savePasscodeHash(passcode)
     }
 }

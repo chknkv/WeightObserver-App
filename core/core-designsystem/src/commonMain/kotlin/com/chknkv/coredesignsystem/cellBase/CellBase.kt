@@ -1,5 +1,7 @@
 package com.chknkv.coredesignsystem.cellBase
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +12,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -21,6 +24,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.chknkv.coredesignsystem.theming.AcTokens
 import com.chknkv.coredesignsystem.theming.getThemedColor
+import com.chknkv.coredesignsystem.typography.Footnote1
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -33,10 +37,25 @@ fun CellBase(
     maxTitle: Int = 2,
     maxSubtitle: Int = 3,
     iconTint: Color = Color.Unspecified,
-    isDivider: Boolean = true
+    isDivider: Boolean = true,
+    onClick: (() -> Unit)? = null
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .then(
+                if (onClick != null) {
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = onClick
+                    )
+                } else {
+                    Modifier
+                }
+            ),
     ) {
         Icon(
             painter = painterResource(iconRes),
@@ -66,19 +85,11 @@ fun CellBase(
                 overflow = TextOverflow.Ellipsis
             )
 
-            Text(
+            Footnote1(
                 text = subtitle,
-                modifier = Modifier.padding(top = 4.dp),
+                modifier = Modifier.padding(top = 2.dp),
                 maxLines = maxSubtitle,
                 textAlign = TextAlign.Start,
-                style = TextStyle(
-                    color = AcTokens.TextPrimary.getThemedColor(),
-                    fontSize = 15.sp,
-                    lineHeight = 16.sp,
-                    letterSpacing = -(0.048).em,
-                    fontWeight = FontWeight.Normal
-                ),
-                overflow = TextOverflow.Ellipsis
             )
 
             if (isDivider) {

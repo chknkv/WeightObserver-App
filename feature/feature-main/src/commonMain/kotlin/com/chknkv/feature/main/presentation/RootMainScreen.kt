@@ -43,9 +43,9 @@ import com.chknkv.coresession.WeightRecord
 import com.chknkv.coreutils.getAppVersion
 import com.chknkv.coreutils.toFormattedString
 import com.chknkv.feature.main.model.presentation.MainAction
-import com.chknkv.feature.main.presentation.components.DetailedStatisticBottomSheet
-import com.chknkv.feature.main.presentation.components.MeasurementBottomSheet
 import com.chknkv.feature.main.presentation.components.SettingBottomSheet
+import com.chknkv.feature.main.presentation.components.MeasurementBottomSheet
+import com.chknkv.feature.main.presentation.components.DetailedStatisticBottomSheet
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_main.generated.resources.Res
@@ -96,7 +96,8 @@ fun RootMainScreen(component: RootMainComponent) {
         SettingBottomSheet(
             onAction = { action -> component.emitAction(action) },
             onDismissRequest = { component.emitAction(MainAction.SettingsAction.HideSettings) },
-            settingsUiResult = uiResult.settingsUiResult
+            settingsUiResult = uiResult.settingsUiResult,
+            passcodeEffect = component.passcodeEffect
         )
     }
 

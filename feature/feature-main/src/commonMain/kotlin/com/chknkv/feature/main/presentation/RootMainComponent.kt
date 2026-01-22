@@ -7,13 +7,25 @@ import com.chknkv.feature.main.model.presentation.MainAction
 import com.chknkv.feature.main.model.presentation.MainScreenUiResult
 import com.chknkv.feature.main.model.presentation.MeasurementUiResult
 import com.chknkv.feature.main.model.presentation.DetailedStatisticUiResult
+import com.chknkv.feature.main.model.presentation.MainAction.SettingsAction
+import com.chknkv.feature.main.model.presentation.MainAction.MainScreenAction
+import com.chknkv.feature.main.model.presentation.MainAction.AddMeasurementAction
+import com.chknkv.feature.main.model.presentation.MainAction.DetailedStatisticAction
+import com.chknkv.feature.main.model.presentation.MainAction.PasscodeSettingsAction
+import com.chknkv.feature.main.model.presentation.PasscodeSettingsUiEffect
+import com.chknkv.feature.main.model.presentation.PasscodeSettingsUiResult
+import com.chknkv.feature.main.model.presentation.PasscodeStep
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -34,6 +46,11 @@ interface RootMainComponent {
      * Updates whenever the underlying data or UI state changes.
      */
     val uiResult: StateFlow<MainScreenUiResult>
+
+    /**
+     * Effect flow for Passcode Settings.
+     */
+    val passcodeEffect: SharedFlow<PasscodeSettingsUiEffect>
 
     /**
      * Initiates the initial data loading for the main screen.
@@ -67,6 +84,12 @@ class RootMainComponentImpl(
     override val uiResult: StateFlow<MainScreenUiResult> get() = _uiResult.asStateFlow()
     private val _uiResult = MutableStateFlow(MainScreenUiResult())
 
+    override val passcodeEffect: SharedFlow<PasscodeSettingsUiEffect> get() = _passcodeEffect.asSharedFlow()
+    private val _passcodeEffect = MutableSharedFlow<PasscodeSettingsUiEffect>(
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+
     private val _actionFlow = MutableSharedFlow<MainAction>()
     private var isFirstLoadMainScreenFlag = true
 
@@ -86,55 +109,234 @@ class RootMainComponentImpl(
         isFirstLoadMainScreenFlag = false
 
         _actionFlow
-            .onStart { emitAction(MainAction.MainScreenAction.Init) }
+            .onStart { emitAction(MainScreenAction.Init) }
             .onEach { action ->
                 when (action) {
-                    is MainAction.MainScreenAction -> resolveMainScreenAction(action)
-                    is MainAction.SettingsAction -> resolveSettingsAction(action)
-                    is MainAction.AddMeasurementAction -> resolveAddMeasurementAction(action)
-                    is MainAction.DetailedStatisticAction -> resolveDetailedStatisticAction(action)
+                    is MainScreenAction -> resolveMainScreenAction(action)
+                    is SettingsAction -> resolveSettingsAction(action)
+                    is AddMeasurementAction -> resolveAddMeasurementAction(action)
+                    is DetailedStatisticAction -> resolveDetailedStatisticAction(action)
+                    is PasscodeSettingsAction -> resolvePasscodeSettingsAction(action)
                 }
             }
             .launchIn(coroutineScope)
     }
 
-    private fun resolveMainScreenAction(action: MainAction.MainScreenAction) = when(action) {
-        is MainAction.MainScreenAction.Init -> loadLastWeight()
-        is MainAction.MainScreenAction.ShowSettings -> _uiResult.update { it.copy(isSettingVisible = true) }
-        is MainAction.MainScreenAction.ShowDetailedStatistic -> initDetailedStatistic()
-        is MainAction.MainScreenAction.ShowAddMeasurement -> _uiResult.update {
-            it.copy(
-                isAddMeasurementVisible = true,
-                measurementUiResult = MeasurementUiResult()
-            )
+    private fun resolveMainScreenAction(action: MainScreenAction) = when(action) {
+        is MainScreenAction.Init -> loadLastWeight()
+        is MainScreenAction.ShowSettings -> _uiResult.update { it.copy(isSettingVisible = true) }
+        is MainScreenAction.ShowDetailedStatistic -> initDetailedStatistic()
+        is MainScreenAction.ShowAddMeasurement -> _uiResult.update {
+            it.copy(isAddMeasurementVisible = true, measurementUiResult = MeasurementUiResult())
         }
     }
 
-    private fun resolveSettingsAction(action: MainAction.SettingsAction) = when(action) {
-        is MainAction.SettingsAction.HideSettings -> _uiResult.update {
+    private fun resolveSettingsAction(action: SettingsAction) = when(action) {
+        is SettingsAction.HideSettings -> _uiResult.update {
             it.copy(isSettingVisible = false)
         }
 
-        is MainAction.SettingsAction.ShowClearDataConfirmation -> _uiResult.update {
+        is SettingsAction.ShowClearDataConfirmation -> _uiResult.update {
             it.copy(settingsUiResult = it.settingsUiResult.copy(isClearDataConfirmationVisible = true))
         }
 
-        is MainAction.SettingsAction.HideClearDataConfirmation -> _uiResult.update {
+        is SettingsAction.HideClearDataConfirmation -> _uiResult.update {
             it.copy(settingsUiResult = it.settingsUiResult.copy(isClearDataConfirmationVisible = false))
         }
 
-        is MainAction.SettingsAction.SignOut -> onSignOut()
+        is SettingsAction.SignOut -> onSignOut()
+
+        is SettingsAction.ShowInformation -> _uiResult.update {
+            it.copy(settingsUiResult = it.settingsUiResult.copy(isInformationVisible = true))
+        }
+
+        is SettingsAction.HideInformation -> _uiResult.update {
+            it.copy(settingsUiResult = it.settingsUiResult.copy(isInformationVisible = false))
+        }
+
+        is SettingsAction.ShowLanguageSelection -> _uiResult.update {
+            it.copy(settingsUiResult = it.settingsUiResult.copy(isLanguageSelectionVisible = true))
+        }
+
+        is SettingsAction.HideLanguageSelection -> _uiResult.update {
+            it.copy(settingsUiResult = it.settingsUiResult.copy(isLanguageSelectionVisible = false))
+        }
+
+        is SettingsAction.ShowPasscodeSettings -> {
+            coroutineScope.launch {
+                val hasPasscode = mainScreenInteractor.hasPasscode()
+                val initialStep = if (hasPasscode) PasscodeStep.Enter else PasscodeStep.Create
+                _uiResult.update {
+                    it.copy(
+                        settingsUiResult = it.settingsUiResult.copy(
+                            isPasscodeSettingsVisible = true,
+                            passcodeSettingsUiResult = PasscodeSettingsUiResult(step = initialStep)
+                        )
+                    )
+                }
+            }
+        }
+
+        is SettingsAction.HidePasscodeSettings -> _uiResult.update {
+            it.copy(settingsUiResult = it.settingsUiResult.copy(isPasscodeSettingsVisible = false))
+        }
     }
 
-    private fun resolveAddMeasurementAction(action: MainAction.AddMeasurementAction) = when(action) {
-        is MainAction.AddMeasurementAction.HideAddMeasurement -> _uiResult.update { it.copy(isAddMeasurementVisible = false) }
-        is MainAction.AddMeasurementAction.SaveWeight -> saveData()
-        is MainAction.AddMeasurementAction.UpdateWeightInput -> updateWeightInput(action.input)
+    private fun resolveAddMeasurementAction(action: AddMeasurementAction) = when(action) {
+        is AddMeasurementAction.HideAddMeasurement -> _uiResult.update { it.copy(isAddMeasurementVisible = false) }
+        is AddMeasurementAction.SaveWeight -> saveData()
+        is AddMeasurementAction.UpdateWeightInput -> updateWeightInput(action.input)
     }
 
-    private fun resolveDetailedStatisticAction(action: MainAction.DetailedStatisticAction) = when(action) {
-        is MainAction.DetailedStatisticAction.HideDetailedStatistic -> _uiResult.update { it.copy(isDetailedStatisticVisible = false) }
-        is MainAction.DetailedStatisticAction.LoadMoreWeights -> loadMoreWeights()
+    private fun resolveDetailedStatisticAction(action: DetailedStatisticAction) = when(action) {
+        is DetailedStatisticAction.HideDetailedStatistic -> _uiResult.update { it.copy(isDetailedStatisticVisible = false) }
+        is DetailedStatisticAction.LoadMoreWeights -> loadMoreWeights()
+    }
+
+    private fun resolvePasscodeSettingsAction(action: PasscodeSettingsAction) {
+        when (action) {
+            is PasscodeSettingsAction.DigitClick -> handlePasscodeDigitClick(action.digit)
+            is PasscodeSettingsAction.DeleteClick -> handlePasscodeDeleteClick()
+            is PasscodeSettingsAction.SkipCreate -> handleSkipCreate()
+            is PasscodeSettingsAction.ShowSkipAlert -> _uiResult.update {
+                it.copy(
+                    settingsUiResult = it.settingsUiResult.copy(
+                        passcodeSettingsUiResult = it.settingsUiResult.passcodeSettingsUiResult.copy(isSkipAlertVisible = true)
+                    )
+                )
+            }
+            is PasscodeSettingsAction.HideSkipAlert -> _uiResult.update {
+                it.copy(
+                    settingsUiResult = it.settingsUiResult.copy(
+                        passcodeSettingsUiResult = it.settingsUiResult.passcodeSettingsUiResult.copy(isSkipAlertVisible = false)
+                    )
+                )
+            }
+            is PasscodeSettingsAction.ShowForgotAlert -> _uiResult.update {
+                it.copy(
+                    settingsUiResult = it.settingsUiResult.copy(
+                        passcodeSettingsUiResult = it.settingsUiResult.passcodeSettingsUiResult.copy(isForgotAlertVisible = true)
+                    )
+                )
+            }
+            is PasscodeSettingsAction.HideForgotAlert -> _uiResult.update {
+                it.copy(
+                    settingsUiResult = it.settingsUiResult.copy(
+                        passcodeSettingsUiResult = it.settingsUiResult.passcodeSettingsUiResult.copy(isForgotAlertVisible = false)
+                    )
+                )
+            }
+            is PasscodeSettingsAction.ResetPasscode -> handleResetPasscode()
+        }
+    }
+
+    private fun handlePasscodeDigitClick(digit: Int) {
+        val uiState = _uiResult.value.settingsUiResult.passcodeSettingsUiResult
+        if (uiState.enteredDigits.size >= 5) return
+
+        val newDigits = uiState.enteredDigits + digit
+        _uiResult.update {
+            it.copy(
+                settingsUiResult = it.settingsUiResult.copy(
+                    passcodeSettingsUiResult = uiState.copy(enteredDigits = newDigits, isError = false)
+                )
+            )
+        }
+
+        if (newDigits.size == 5) {
+            coroutineScope.launch {
+                delay(200)
+                processPasscodeFilled(newDigits)
+            }
+        }
+    }
+
+    private fun handlePasscodeDeleteClick() {
+        val uiState = _uiResult.value.settingsUiResult.passcodeSettingsUiResult
+        if (uiState.enteredDigits.isNotEmpty()) {
+            _uiResult.update {
+                it.copy(
+                    settingsUiResult = it.settingsUiResult.copy(
+                        passcodeSettingsUiResult = uiState.copy(
+                            enteredDigits = uiState.enteredDigits.dropLast(1),
+                            isError = false
+                        )
+                    )
+                )
+            }
+        }
+    }
+
+    private suspend fun processPasscodeFilled(digits: List<Int>) {
+        val uiState = _uiResult.value.settingsUiResult.passcodeSettingsUiResult
+        val passcode = digits.joinToString("")
+
+        when (uiState.step) {
+            PasscodeStep.Enter -> {
+                if (mainScreenInteractor.checkPasscode(passcode)) {
+                    _uiResult.update {
+                        it.copy(
+                            settingsUiResult = it.settingsUiResult.copy(
+                                passcodeSettingsUiResult = PasscodeSettingsUiResult(step = PasscodeStep.Create)
+                            )
+                        )
+                    }
+                } else {
+                    _passcodeEffect.emit(PasscodeSettingsUiEffect.InvalidPasscode)
+                    _uiResult.update {
+                        it.copy(
+                            settingsUiResult = it.settingsUiResult.copy(
+                                passcodeSettingsUiResult = uiState.copy(enteredDigits = emptyList(), isError = true)
+                            )
+                        )
+                    }
+                }
+            }
+            PasscodeStep.Create -> {
+                _uiResult.update {
+                    it.copy(
+                        settingsUiResult = it.settingsUiResult.copy(
+                            passcodeSettingsUiResult = uiState.copy(
+                                step = PasscodeStep.Confirm,
+                                savedPasscode = passcode,
+                                enteredDigits = emptyList()
+                            )
+                        )
+                    )
+                }
+            }
+            PasscodeStep.Confirm -> {
+                if (passcode == uiState.savedPasscode) {
+                    mainScreenInteractor.savePasscode(passcode)
+                    _passcodeEffect.emit(PasscodeSettingsUiEffect.PasscodeCreated)
+                    emitAction(SettingsAction.HidePasscodeSettings)
+                } else {
+                    _passcodeEffect.emit(PasscodeSettingsUiEffect.PasswordsDoNotMatch)
+                    _uiResult.update {
+                        it.copy(
+                            settingsUiResult = it.settingsUiResult.copy(
+                                passcodeSettingsUiResult = PasscodeSettingsUiResult(step = PasscodeStep.Create, isError = true)
+                            )
+                        )
+                    }
+                }
+            }
+            PasscodeStep.Init -> Unit
+        }
+    }
+
+    private fun handleSkipCreate() {
+        coroutineScope.launch {
+            mainScreenInteractor.savePasscode(null)
+            emitAction(SettingsAction.HidePasscodeSettings)
+        }
+    }
+
+    private fun handleResetPasscode() {
+        coroutineScope.launch {
+            mainScreenInteractor.signOut()
+            onSignOutRequested()
+        }
     }
 
     override fun emitAction(action: MainAction) {
