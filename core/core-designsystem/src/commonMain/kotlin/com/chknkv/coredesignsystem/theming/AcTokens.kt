@@ -8,10 +8,13 @@ import androidx.compose.ui.graphics.Color
 
 enum class AcTokens {
     AppBarNavigationButton,
+    AlertActionBackground,
 
     Background0,
+    Background1,
 
     BottomSheetHook,
+    BottomSheetScrim,
 
     ButtonDisabled,
     ButtonStandard,
@@ -39,8 +42,8 @@ enum class AcTokens {
     NavigationBarSelectedColor,
     NavigationBarUnselectedColor,
 
+    PasscodeKey,
     ProgressBar,
-
     PullToRefreshBackground,
     PullToRefreshProgress,
 

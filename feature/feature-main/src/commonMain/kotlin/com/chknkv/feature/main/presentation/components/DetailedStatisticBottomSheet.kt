@@ -76,8 +76,9 @@ fun DetailedStatisticBottomSheet(
             shouldDismissOnBackPress = false,
             shouldDismissOnClickOutside = false
         ),
-        containerColor = AcTokens.Background0.getThemedColor(),
-        contentColor = AcTokens.Background0.getThemedColor(),
+        scrimColor = AcTokens.BottomSheetScrim.getThemedColor(),
+        containerColor = AcTokens.Background1.getThemedColor(),
+        contentColor = AcTokens.Background1.getThemedColor(),
         dragHandle = {
             BottomSheetDefaults.DragHandle(
                 color = AcTokens.BottomSheetHook.getThemedColor()

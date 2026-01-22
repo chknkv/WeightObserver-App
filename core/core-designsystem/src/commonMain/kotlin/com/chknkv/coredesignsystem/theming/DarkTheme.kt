@@ -6,10 +6,13 @@ import com.chknkv.coredesignsystem.*
 /** Colors for dark theme */
 fun darkThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.AppBarNavigationButton to White1,
+    AcTokens.AlertActionBackground to Graphite1,
 
     AcTokens.Background0 to Graphite5,
+    AcTokens.Background1 to Graphite7,
 
     AcTokens.BottomSheetHook to Gray1,
+    AcTokens.BottomSheetScrim to BlackScrim,
 
     AcTokens.ButtonDisabled to Gray2,
     AcTokens.ButtonStandard to White1,
@@ -31,14 +34,14 @@ fun darkThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.IconTrendFlat to Gray2,
     AcTokens.IconWarning to Orange1,
 
-    AcTokens.Module to Graphite1,
+    AcTokens.Module to Graphite7,
 
     AcTokens.NavigationBarColor to Graphite5,
     AcTokens.NavigationBarSelectedColor to White1,
     AcTokens.NavigationBarUnselectedColor to White2,
 
+    AcTokens.PasscodeKey to Gray2,
     AcTokens.ProgressBar to White1,
-
     AcTokens.PullToRefreshBackground to White1,
     AcTokens.PullToRefreshProgress to Black1,
 

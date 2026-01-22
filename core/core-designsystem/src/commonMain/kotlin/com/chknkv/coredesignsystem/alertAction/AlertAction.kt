@@ -49,7 +49,7 @@ fun AlertAction(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            color = AcTokens.Background0.getThemedColor(),
+            color = AcTokens.AlertActionBackground.getThemedColor(),
             shape = RoundedCornerShape(16.dp)
         ) {
             Box(modifier = Modifier.padding(vertical = 28.dp, horizontal = 24.dp)) {

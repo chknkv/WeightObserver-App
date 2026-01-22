@@ -120,8 +120,8 @@ fun RootMainScreen(component: RootMainComponent) {
 @Composable
 private fun TopContentBlock(onAction: (MainAction) -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
+        modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
+        horizontalArrangement = Arrangement.End,
     ) {
         IconButton(onClick = { onAction(MainAction.MainScreenAction.ShowSettings) }) {
             Icon(

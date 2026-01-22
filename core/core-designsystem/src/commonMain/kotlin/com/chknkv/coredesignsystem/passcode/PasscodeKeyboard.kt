@@ -87,7 +87,7 @@ private fun PasscodeKey(
             .padding(vertical = 2.dp, horizontal = 2.dp)
             .height(PASSCODE_KEY_HEIGHT_SIZE)
             .background(
-                color = AcTokens.IconSecondary.getThemedColor(),
+                color = AcTokens.PasscodeKey.getThemedColor(),
                 shape = RoundedCornerShape(16.dp)
             )
             .clickable(

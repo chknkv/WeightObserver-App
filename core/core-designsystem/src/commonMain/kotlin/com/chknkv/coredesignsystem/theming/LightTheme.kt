@@ -6,10 +6,13 @@ import com.chknkv.coredesignsystem.*
 /** Colors for light theme */
 fun lightThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.AppBarNavigationButton to Black1,
+    AcTokens.AlertActionBackground to White1,
 
     AcTokens.Background0 to White3,
+    AcTokens.Background1 to White1,
 
     AcTokens.BottomSheetHook to Graphite2,
+    AcTokens.BottomSheetScrim to BlackScrim,
 
     AcTokens.ButtonDisabled to Gray1,
     AcTokens.ButtonStandard to Black1,
@@ -37,6 +40,7 @@ fun lightThemeTokensMap(): Map<AcTokens, Color> = mapOf(
     AcTokens.NavigationBarSelectedColor to Black1,
     AcTokens.NavigationBarUnselectedColor to Black2,
 
+    AcTokens.PasscodeKey to Gray3,
     AcTokens.ProgressBar to Black1,
 
     AcTokens.PullToRefreshBackground to Black1,

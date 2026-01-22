@@ -7,6 +7,7 @@ val Beige2: Color = Color(0xFFb29e83)
 
 val Black1: Color = Color(0xff000000)
 val Black2 = Color(0x8c000000)
+val BlackScrim = Color(0x99000000)
 val BlackTransparent: Color = Color(0x00000000)
 
 val Blue1: Color = Color(0xFFF0F4FF)
@@ -24,7 +25,8 @@ val Graphite2 = Color(0xFF6B6B6B)
 val Graphite3 = Color(0x32222222)
 val Graphite4 = Color(0xA4222222)
 val Graphite5 = Color(0xff1e1e1e)
-val Graphite6 = Color(0xFF9E9E9E) // Finance card goals color - visible on both themes
+val Graphite6 = Color(0xFF9E9E9E)
+val Graphite7: Color = Color(0xFF313131)
 
 val Gray1 = Color(0xFFC7C7C7)
 val Gray2: Color = Color(0x32c7c7c7)
@@ -42,14 +44,14 @@ val Green6: Color = Color(0xFF869886)
 val Green7: Color = Color(0xFF728372)
 val Green8: Color = Color(0xFF5E6F5E)
 val Green10: Color = Color(0xFF443F44)
-val Green11: Color = Color(0xFF4CAF50) // Finance card savings color - visible on both themes
+val Green11: Color = Color(0xFF4CAF50)
 
 val Red1: Color = Color(0xFFFFF1F1)
 val Red2: Color = Color(0xFFFFE2E2)
 val Red3: Color = Color(0xFFFFC9C9)
 val Red4: Color = Color(0xFF933636)
 val Red5: Color = Color(0xFF715050)
-val Red6: Color = Color(0xFFD32F2F) // Finance card debts color - visible on both themes
+val Red6: Color = Color(0xFFD32F2F)
 
 val Orange1: Color = Color(0xFFE35502)
 val Orange2: Color = Color(0x32E35502)

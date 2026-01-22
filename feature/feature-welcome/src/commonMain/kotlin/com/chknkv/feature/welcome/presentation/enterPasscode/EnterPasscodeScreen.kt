@@ -133,12 +133,12 @@ fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
                 data = AlertActionData(
                     titleAction = stringResource(Res.string.enter_passcode_alert_title),
                     subtitleAction = stringResource(Res.string.enter_passcode_alert_subtitle),
-                    positiveActionText = stringResource(Res.string.enter_passcode_alert_positive_action),
-                    negativeActionText = stringResource(Res.string.enter_passcode_alert_negative_action)
+                    positiveActionText = stringResource(Res.string.enter_passcode_alert_negative_action),
+                    negativeActionText = stringResource(Res.string.enter_passcode_alert_positive_action)
                 ),
                 onDismissClick = { component.emitAction(EnterPasscodeUiAction.HideForgotDialog) },
-                onPositiveActionClick = { component.emitAction(EnterPasscodeUiAction.ForgotPasscode) },
-                onNegativeActionClick = { component.emitAction(EnterPasscodeUiAction.HideForgotDialog) }
+                onPositiveActionClick = { component.emitAction(EnterPasscodeUiAction.HideForgotDialog) },
+                onNegativeActionClick = { component.emitAction(EnterPasscodeUiAction.ForgotPasscode) }
             )
         }
     }
