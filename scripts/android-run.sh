@@ -38,11 +38,8 @@ else
     echo "📱 Using device: $DEVICE_ID ($DEVICE_INFO)"
 fi
 
-echo "🔨 Building Android app..."
-./gradlew :WeightObserver-MobileApp:assembleDebug
-
-echo "📱 Installing app on device/emulator..."
-./gradlew :WeightObserver-MobileApp:installDebug
+echo "📱 Building and installing app on device/emulator..."
+./gradlew :androidApp:installDebug
 
 echo "🚀 Launching app..."
 "$ADB" -s "$DEVICE_ID" shell am start -n com.chknkv.weightobserver/.WeightObserverMainActivity

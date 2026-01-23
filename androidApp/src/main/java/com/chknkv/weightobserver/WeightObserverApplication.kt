@@ -4,6 +4,7 @@ import android.app.Application
 import com.chknkv.coresession.LanguageManager
 import com.chknkv.coresession.coreSessionModule
 import com.chknkv.coresession.coreStorageModule
+import com.chknkv.coreutils.appContext
 import com.chknkv.feature.main.di.featureMainModule
 import com.chknkv.feature.welcome.di.featureWelcomeModule
 import io.github.aakira.napier.DebugAntilog
@@ -19,7 +20,7 @@ class WeightObserverApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        com.chknkv.coreutils.appContext = this
+        appContext = this
         Napier.base(DebugAntilog())
 
         startKoin {

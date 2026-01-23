@@ -2,11 +2,15 @@ description = "Core module with utils."
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKotlinMultiplatformLibrary)
 }
 
 kotlin {
-    androidTarget()
+    androidLibrary {
+        namespace = "com.chknkv.coreutils"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+    }
     
     val xcfName = "core-utilsKit"
     listOf(
@@ -26,17 +30,5 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.kotlinx.datetime)
         }
-    }
-}
-
-android {
-    namespace = "com.chknkv.coreutils"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 }

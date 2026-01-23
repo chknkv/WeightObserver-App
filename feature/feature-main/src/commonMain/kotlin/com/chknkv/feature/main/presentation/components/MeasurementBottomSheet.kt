@@ -39,7 +39,8 @@ import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coredesignsystem.typography.Footnote1Secondary
 import com.chknkv.coredesignsystem.typography.Headline3
 import com.chknkv.feature.main.model.presentation.MainAction
-import com.chknkv.feature.main.model.presentation.MeasurementUiResult
+import com.chknkv.feature.main.model.presentation.uiResult.MeasurementUiResult
+import com.chknkv.feature.main.model.presentation.uiAction.AddMeasurementAction
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_main.generated.resources.Res
@@ -111,7 +112,7 @@ fun MeasurementBottomSheet(
                         selection = TextRange(measurementUiResult.rawInput.length)
                     ),
                     onValueChange = { newValue ->
-                        onAction(MainAction.AddMeasurementAction.UpdateWeightInput(newValue.text))
+                        onAction(AddMeasurementAction.UpdateWeightInput(newValue.text))
                     },
                     modifier = Modifier.focusRequester(focusRequester),
                     textStyle = TextStyle(
@@ -134,7 +135,7 @@ fun MeasurementBottomSheet(
                 firstButtonText = stringResource(Res.string.measurement_cancel),
                 secondButtonText = stringResource(Res.string.measurement_add),
                 firstButtonClick = onDismissRequest,
-                secondButtonClick = { onAction(MainAction.AddMeasurementAction.SaveWeight) },
+                secondButtonClick = { onAction(AddMeasurementAction.SaveWeight) },
                 firstButtonStyle = AcButtonStyle.Transparent,
                 secondButtonStyle = AcButtonStyle.Standard,
                 secondButtonEnabled = measurementUiResult.isSaveEnabled

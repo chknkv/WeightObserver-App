@@ -38,8 +38,9 @@ import com.chknkv.coredesignsystem.typography.Headline3
 import com.chknkv.coreutils.toFormattedString
 import com.chknkv.feature.main.model.domain.WeightRecordWithTrend
 import com.chknkv.feature.main.model.domain.WeightTrend
-import com.chknkv.feature.main.model.presentation.DetailedStatisticUiResult
+import com.chknkv.feature.main.model.presentation.uiResult.DetailedStatisticUiResult
 import com.chknkv.feature.main.model.presentation.MainAction
+import com.chknkv.feature.main.model.presentation.uiAction.DetailedStatisticAction
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_main.generated.resources.Res
@@ -142,7 +143,7 @@ fun DetailedStatisticBottomSheet(
                                 }
                             } else if (!uiResult.isEndReached && uiResult.records.isNotEmpty()) {
                                 LaunchedEffect(Unit) {
-                                    onAction(MainAction.DetailedStatisticAction.LoadMoreWeights)
+                                    onAction(DetailedStatisticAction.LoadMoreWeights)
                                 }
                             }
                         }

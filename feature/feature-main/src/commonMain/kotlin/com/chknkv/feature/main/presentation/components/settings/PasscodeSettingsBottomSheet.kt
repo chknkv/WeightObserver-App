@@ -34,10 +34,10 @@ import com.chknkv.coredesignsystem.theming.AcTokens
 import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coredesignsystem.typography.Body3Secondary
 import com.chknkv.coredesignsystem.typography.Headline3
-import com.chknkv.feature.main.model.presentation.MainAction.PasscodeSettingsAction
-import com.chknkv.feature.main.model.presentation.PasscodeSettingsUiEffect
-import com.chknkv.feature.main.model.presentation.PasscodeSettingsUiResult
-import com.chknkv.feature.main.model.presentation.PasscodeStep
+import com.chknkv.feature.main.model.presentation.uiAction.PasscodeSettingsAction
+import com.chknkv.feature.main.model.presentation.uiResult.PasscodeSettingsUiEffect
+import com.chknkv.feature.main.model.presentation.uiResult.PasscodeSettingsUiResult
+import com.chknkv.feature.main.model.presentation.uiResult.PasscodeStep
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource

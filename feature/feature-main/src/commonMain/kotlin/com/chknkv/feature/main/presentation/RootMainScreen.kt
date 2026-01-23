@@ -43,6 +43,10 @@ import com.chknkv.coresession.WeightRecord
 import com.chknkv.coreutils.getAppVersion
 import com.chknkv.coreutils.toFormattedString
 import com.chknkv.feature.main.model.presentation.MainAction
+import com.chknkv.feature.main.model.presentation.uiAction.AddMeasurementAction
+import com.chknkv.feature.main.model.presentation.uiAction.DetailedStatisticAction
+import com.chknkv.feature.main.model.presentation.uiAction.MainScreenAction
+import com.chknkv.feature.main.model.presentation.uiAction.SettingsAction
 import com.chknkv.feature.main.presentation.components.SettingBottomSheet
 import com.chknkv.feature.main.presentation.components.MeasurementBottomSheet
 import com.chknkv.feature.main.presentation.components.DetailedStatisticBottomSheet
@@ -95,7 +99,7 @@ fun RootMainScreen(component: RootMainComponent) {
     if (uiResult.isSettingVisible) {
         SettingBottomSheet(
             onAction = { action -> component.emitAction(action) },
-            onDismissRequest = { component.emitAction(MainAction.SettingsAction.HideSettings) },
+            onDismissRequest = { component.emitAction(SettingsAction.HideSettings) },
             settingsUiResult = uiResult.settingsUiResult,
             passcodeEffect = component.passcodeEffect
         )
@@ -105,7 +109,7 @@ fun RootMainScreen(component: RootMainComponent) {
         MeasurementBottomSheet(
             measurementUiResult = uiResult.measurementUiResult,
             onAction = { action -> component.emitAction(action) },
-            onDismissRequest = { component.emitAction(MainAction.AddMeasurementAction.HideAddMeasurement) }
+            onDismissRequest = { component.emitAction(AddMeasurementAction.HideAddMeasurement) }
         )
     }
 
@@ -113,7 +117,7 @@ fun RootMainScreen(component: RootMainComponent) {
         DetailedStatisticBottomSheet(
             uiResult = uiResult.detailedStatisticUiResult,
             onAction = { component.emitAction(it) },
-            onDismissRequest = { component.emitAction(MainAction.DetailedStatisticAction.HideDetailedStatistic) }
+            onDismissRequest = { component.emitAction(DetailedStatisticAction.HideDetailedStatistic) }
         )
     }
 }
@@ -124,7 +128,7 @@ private fun TopContentBlock(onAction: (MainAction) -> Unit) {
         modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
         horizontalArrangement = Arrangement.End,
     ) {
-        IconButton(onClick = { onAction(MainAction.MainScreenAction.ShowSettings) }) {
+        IconButton(onClick = { onAction(MainScreenAction.ShowSettings) }) {
             Icon(
                 painter = painterResource(Res.drawable.ic_settings),
                 contentDescription = stringResource(Res.string.settings_title),
@@ -157,7 +161,7 @@ private fun StatisticBlock(onAction: (MainAction) -> Unit) {
                 text = stringResource(Res.string.statistic_show),
                 style = AcButtonStyle.Transparent,
                 verticalPadding = 0.dp,
-                onClick = { onAction(MainAction.MainScreenAction.ShowDetailedStatistic) },
+                onClick = { onAction(MainScreenAction.ShowDetailedStatistic) },
             )
         }
     }
@@ -219,7 +223,7 @@ private fun MeasurementBlock(
                 text = stringResource(Res.string.main_add_new_measurement),
                 style = AcButtonStyle.Standard,
                 verticalPadding = 0.dp,
-                onClick = { onAction(MainAction.MainScreenAction.ShowAddMeasurement) },
+                onClick = { onAction(MainScreenAction.ShowAddMeasurement) },
             )
         }
     }

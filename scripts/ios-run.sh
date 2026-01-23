@@ -87,14 +87,14 @@ if [ "$IS_PHYSICAL_DEVICE" = true ]; then
     SDK="iphoneos"
     ARCH="iosArm64"
     echo "🔨 Building Kotlin framework for physical device (iosArm64)..."
-    ./gradlew :WeightObserver-MobileApp:linkDebugFrameworkIosArm64
+    ./gradlew :shared:linkDebugFrameworkIosArm64
     
     echo "⏭️  Xcode build will be done with device destination"
 else
     SDK="iphonesimulator"
     ARCH="iosSimulatorArm64"
     echo "🔨 Building Kotlin framework for simulator (iosSimulatorArm64)..."
-    ./gradlew :WeightObserver-MobileApp:linkDebugFrameworkIosSimulatorArm64
+    ./gradlew :shared:linkDebugFrameworkIosSimulatorArm64
     
     echo "🔨 Building Xcode project for simulator..."
     BUILD_OUTPUT=$(xcodebuild -project iosApp/iosApp.xcodeproj \

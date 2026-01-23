@@ -20,7 +20,7 @@ import org.koin.core.parameter.parametersOf
  *
  * @property rootStack Stack in unauthorized area
  */
-internal interface WeightObserverRootComponent {
+interface WeightObserverRootComponent {
 
     val rootStack: Value<ChildStack<*, RootChild>>
 
@@ -43,7 +43,7 @@ internal interface WeightObserverRootComponent {
  *
  * @param componentContext ComponentContext
  */
-internal class WeightObserverRootComponentImpl(
+class WeightObserverRootComponentImpl(
     componentContext: ComponentContext,
     private val sessionRepository: SessionRepository,
 ) : WeightObserverRootComponent, ComponentContext by componentContext, KoinComponent {

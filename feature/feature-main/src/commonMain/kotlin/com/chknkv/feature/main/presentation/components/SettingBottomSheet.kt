@@ -21,8 +21,9 @@ import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coredesignsystem.typography.Headline3
 import com.chknkv.coreutils.openUrl
 import com.chknkv.feature.main.model.presentation.MainAction
-import com.chknkv.feature.main.model.presentation.PasscodeSettingsUiEffect
-import com.chknkv.feature.main.model.presentation.SettingsUiResult
+import com.chknkv.feature.main.model.presentation.uiResult.SettingsUiResult
+import com.chknkv.feature.main.model.presentation.uiAction.SettingsAction
+import com.chknkv.feature.main.model.presentation.uiResult.PasscodeSettingsUiEffect
 import com.chknkv.feature.main.presentation.components.settings.InformationBottomSheet
 import com.chknkv.feature.main.presentation.components.settings.LanguageBottomSheet
 import com.chknkv.feature.main.presentation.components.settings.PasscodeSettingsBottomSheet
@@ -100,7 +101,7 @@ fun SettingBottomSheet(
                 subtitle = stringResource(Res.string.settings_info_subtitle),
                 maxSubtitle = 3,
                 iconTint = AcTokens.IconPrimary.getThemedColor(),
-                onClick = { onAction(MainAction.SettingsAction.ShowInformation) }
+                onClick = { onAction(SettingsAction.ShowInformation) }
             )
 
             CellBase(
@@ -120,7 +121,7 @@ fun SettingBottomSheet(
                 subtitle = stringResource(Res.string.settings_passcode_subtitle),
                 maxSubtitle = 3,
                 iconTint = AcTokens.IconPrimary.getThemedColor(),
-                onClick = { onAction(MainAction.SettingsAction.ShowPasscodeSettings) }
+                onClick = { onAction(SettingsAction.ShowPasscodeSettings) }
             )
 
             CellBase(
@@ -130,13 +131,13 @@ fun SettingBottomSheet(
                 subtitle = stringResource(Res.string.settings_language_subtitle),
                 maxSubtitle = 3,
                 iconTint = AcTokens.IconPrimary.getThemedColor(),
-                onClick = { onAction(MainAction.SettingsAction.ShowLanguageSelection) },
+                onClick = { onAction(SettingsAction.ShowLanguageSelection) },
                 isDivider = false
             )
 
             AcButton(
                 text = stringResource(Res.string.settings_clear_data),
-                onClick = { onAction.invoke(MainAction.SettingsAction.ShowClearDataConfirmation) },
+                onClick = { onAction.invoke(SettingsAction.ShowClearDataConfirmation) },
                 style = AcButtonStyle.TransparentNegative
             )
         }
@@ -150,21 +151,21 @@ fun SettingBottomSheet(
                 positiveActionText = stringResource(Res.string.settings_clear_data_cancel),
                 negativeActionText = stringResource(Res.string.settings_clear_data_confirm)
             ),
-            onDismissClick = { onAction.invoke(MainAction.SettingsAction.HideClearDataConfirmation) },
-            onPositiveActionClick = { onAction.invoke(MainAction.SettingsAction.HideClearDataConfirmation) },
-            onNegativeActionClick = { onAction.invoke(MainAction.SettingsAction.SignOut) }
+            onDismissClick = { onAction.invoke(SettingsAction.HideClearDataConfirmation) },
+            onPositiveActionClick = { onAction.invoke(SettingsAction.HideClearDataConfirmation) },
+            onNegativeActionClick = { onAction.invoke(SettingsAction.SignOut) }
         )
     }
 
     if (settingsUiResult.isInformationVisible) {
         InformationBottomSheet(
-            onDismissRequest = { onAction.invoke(MainAction.SettingsAction.HideInformation) }
+            onDismissRequest = { onAction.invoke(SettingsAction.HideInformation) }
         )
     }
 
     if (settingsUiResult.isLanguageSelectionVisible) {
         LanguageBottomSheet(
-            onDismissRequest = { onAction.invoke(MainAction.SettingsAction.HideLanguageSelection) }
+            onDismissRequest = { onAction.invoke(SettingsAction.HideLanguageSelection) }
         )
     }
 
@@ -173,7 +174,7 @@ fun SettingBottomSheet(
             uiResult = settingsUiResult.passcodeSettingsUiResult,
             effects = passcodeEffect,
             onAction = { onAction(it) },
-            onDismissRequest = { onAction(MainAction.SettingsAction.HidePasscodeSettings) }
+            onDismissRequest = { onAction(SettingsAction.HidePasscodeSettings) }
         )
     }
 }

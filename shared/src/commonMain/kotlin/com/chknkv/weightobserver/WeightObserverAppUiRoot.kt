@@ -19,7 +19,7 @@ import org.koin.compose.koinInject
  * holds all components for both authorized and unauthorized zones.
  */
 @Composable
-internal fun WeightObserverAppUiRoot(rootComponent: WeightObserverRootComponent) {
+fun WeightObserverAppUiRoot(rootComponent: WeightObserverRootComponent) {
     val languageManager = koinInject<LanguageManager>()
     val currentLanguage by languageManager.currentLanguage.collectAsState()
 

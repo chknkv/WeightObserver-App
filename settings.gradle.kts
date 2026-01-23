@@ -28,11 +28,10 @@ dependencyResolutionManagement {
     }
 }
 
-include(":WeightObserver-MobileApp")
-
+include(":androidApp")
+include(":shared")
 include(":core:core-utils")
 include(":core:core-session")
 include(":core:core-designsystem")
-
-include(":feature:feature-welcome")
 include(":feature:feature-main")
+include(":feature:feature-welcome")
