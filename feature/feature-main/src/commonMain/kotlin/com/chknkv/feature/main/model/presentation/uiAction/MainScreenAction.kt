@@ -18,4 +18,10 @@ sealed interface MainScreenAction : MainAction {
 
     /** Action to show the detailed statistic bottom sheet. */
     data object ShowDetailedStatistic : MainScreenAction
+
+    /** Swipe chart left (toward today). Enabled only when `chartWindowIndex` > 0. */
+    data object ChartSwipeLeft : MainScreenAction
+
+    /** Swipe chart right (into past). Enabled only when `hasOlderWindow` for current index. */
+    data object ChartSwipeRight : MainScreenAction
 }

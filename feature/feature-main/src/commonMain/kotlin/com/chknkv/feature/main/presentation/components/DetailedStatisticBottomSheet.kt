@@ -1,5 +1,6 @@
 package com.chknkv.feature.main.presentation.components
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -23,11 +24,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.chknkv.coredesignsystem.alertAction.AlertAction
+import com.chknkv.coredesignsystem.alertAction.AlertActionData
 import com.chknkv.coredesignsystem.buttons.AcButton
 import com.chknkv.coredesignsystem.buttons.AcButtonStyle
 import com.chknkv.coredesignsystem.theming.AcTokens
@@ -41,6 +47,7 @@ import com.chknkv.feature.main.model.domain.WeightTrend
 import com.chknkv.feature.main.model.presentation.uiResult.DetailedStatisticUiResult
 import com.chknkv.feature.main.model.presentation.MainAction
 import com.chknkv.feature.main.model.presentation.uiAction.DetailedStatisticAction
+import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_main.generated.resources.Res
@@ -48,6 +55,11 @@ import weightobserver_project.feature.feature_main.generated.resources.ic_trendi
 import weightobserver_project.feature.feature_main.generated.resources.ic_trending_flat
 import weightobserver_project.feature.feature_main.generated.resources.ic_trending_up
 import weightobserver_project.feature.feature_main.generated.resources.main_weight_unit
+import weightobserver_project.feature.feature_main.generated.resources.statistic_delete_alert_negative_action
+import weightobserver_project.feature.feature_main.generated.resources.statistic_delete_alert_positive_action
+import weightobserver_project.feature.feature_main.generated.resources.statistic_delete_alert_subtitle
+import weightobserver_project.feature.feature_main.generated.resources.statistic_delete_alert_title
+import weightobserver_project.feature.feature_main.generated.resources.statistic_delete_hint
 import weightobserver_project.feature.feature_main.generated.resources.statistic_medical_disclaimer
 import weightobserver_project.feature.feature_main.generated.resources.statistic_no_data
 import weightobserver_project.feature.feature_main.generated.resources.statistic_ok
@@ -102,7 +114,12 @@ fun DetailedStatisticBottomSheet(
 
                 Footnote1Secondary(
                     text = stringResource(Res.string.statistic_medical_disclaimer),
-                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+                )
+
+                Footnote1Secondary(
+                    text = stringResource(Res.string.statistic_delete_hint),
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                 )
 
                 if (uiResult.records.isEmpty() && !uiResult.isLoading) {
@@ -123,8 +140,16 @@ fun DetailedStatisticBottomSheet(
                             .fillMaxWidth()
                             .weight(1f, fill = false)
                     ) {
-                        items(items = uiResult.records) { record ->
-                            WeightRecordWidget(record)
+                        items(
+                            items = uiResult.records,
+                            key = { record -> record.record.date }
+                        ) { record ->
+                            WeightRecordWidget(
+                                item = record,
+                                onLongPress = { date ->
+                                    onAction(DetailedStatisticAction.ShowDeleteAlert(date))
+                                }
+                            )
                         }
 
                         item {
@@ -158,11 +183,31 @@ fun DetailedStatisticBottomSheet(
             }
         }
     }
+
+    if (uiResult.isDeleteAlertVisible && uiResult.deleteAlertDate != null) {
+        AlertAction(
+            data = AlertActionData(
+                titleAction = stringResource(Res.string.statistic_delete_alert_title),
+                subtitleAction = stringResource(Res.string.statistic_delete_alert_subtitle),
+                positiveActionText = stringResource(Res.string.statistic_delete_alert_positive_action),
+                negativeActionText = stringResource(Res.string.statistic_delete_alert_negative_action)
+            ),
+            onDismissClick = { onAction(DetailedStatisticAction.HideDeleteAlert) },
+            onPositiveActionClick = { onAction(DetailedStatisticAction.HideDeleteAlert) },
+            onNegativeActionClick = {
+                onAction(DetailedStatisticAction.DeleteWeight(uiResult.deleteAlertDate))
+            }
+        )
+    }
 }
 
 @Composable
-private fun WeightRecordWidget(item: WeightRecordWithTrend) {
+private fun WeightRecordWidget(
+    item: WeightRecordWithTrend,
+    onLongPress: (LocalDate) -> Unit
+) {
     val record = item.record
+    val haptic = LocalHapticFeedback.current
     val (iconRes, iconColorToken) = when (item.trend) {
         WeightTrend.UP -> Res.drawable.ic_trending_up to AcTokens.IconTrendUp
         WeightTrend.DOWN -> Res.drawable.ic_trending_down to AcTokens.IconTrendDown
@@ -170,7 +215,16 @@ private fun WeightRecordWidget(item: WeightRecordWithTrend) {
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onLongPress = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onLongPress(record.date)
+                    }
+                )
+            }
     ) {
         Row(
             modifier = Modifier
@@ -178,7 +232,6 @@ private fun WeightRecordWidget(item: WeightRecordWithTrend) {
                 .padding(vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Icon(
                 painter = painterResource(iconRes),
                 contentDescription = null,
@@ -191,7 +244,6 @@ private fun WeightRecordWidget(item: WeightRecordWithTrend) {
                     .padding(horizontal = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Body1(
                     modifier = Modifier.weight(1f),
                     text = record.date.toFormattedString(),

@@ -17,14 +17,20 @@ import org.koin.compose.koinInject
 /**
  * The main UI-function, which contains the entire core UI of the application,
  * holds all components for both authorized and unauthorized zones.
+ *
+ * @param rootComponent root navigation component
+ * @param darkTheme explicit theme override (Android: from system uiMode; iOS: null = use isSystemInDarkTheme)
  */
 @Composable
-fun WeightObserverAppUiRoot(rootComponent: WeightObserverRootComponent) {
+fun WeightObserverAppUiRoot(
+    rootComponent: WeightObserverRootComponent,
+    darkTheme: Boolean? = null
+) {
     val languageManager = koinInject<LanguageManager>()
     val currentLanguage by languageManager.currentLanguage.collectAsState()
 
     key(currentLanguage) {
-        AcTheme {
+        AcTheme(darkTheme = darkTheme) {
             Children(
                 stack = rootComponent.rootStack,
                 animation = stackAnimation(slide())

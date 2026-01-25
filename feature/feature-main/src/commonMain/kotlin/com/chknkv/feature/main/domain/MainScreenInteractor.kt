@@ -4,9 +4,11 @@ import com.chknkv.coresession.SessionRepository
 import com.chknkv.coresession.WeightRecord
 import com.chknkv.coresession.WeightRepository
 import com.chknkv.coreutils.getCurrentDate
+import com.chknkv.feature.main.model.domain.ChartData
 import com.chknkv.feature.main.model.domain.WeightRecordWithTrend
 import com.chknkv.feature.main.model.domain.WeightTrend
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 
 /**
@@ -57,6 +59,33 @@ interface MainScreenInteractor {
      * Saves or removes the passcode.
      */
     suspend fun savePasscode(passcode: String?)
+
+    /**
+     * Deletes a weight record for a specific date.
+     *
+     * @param date The date of the measurement to delete.
+     */
+    suspend fun deleteWeight(date: LocalDate)
+
+    /**
+     * Returns chart data for the chart (Y = weight, X = date).
+     * Loads 31 days: today-31..today. X axis is fixed; missing days have no point,
+     * line connects consecutive measurements (no "empty day" on scale).
+     * [ChartData.points] sorted by date ascending; [ChartData.lineTrend] from last vs previous (≥0.2 kg).
+     */
+    suspend fun getLast30DaysChartData(): ChartData
+
+    /**
+     * Returns chart data for the given 30-day window.
+     * Window 0: [today-30, today]; window k≥1: [today-30(k+1), today-30k-1].
+     */
+    suspend fun getChartDataForWindow(windowIndex: Int): ChartData
+
+    /**
+     * True iff the next window (further past) has at least one weight record.
+     * Used to enable/disable "swipe right" (older data).
+     */
+    suspend fun hasOlderWindow(windowIndex: Int): Boolean
 }
 
 /**
@@ -121,5 +150,53 @@ class MainScreenInteractorImpl(
 
     override suspend fun savePasscode(passcode: String?) {
         sessionRepository.savePasscodeHash(passcode)
+    }
+
+    override suspend fun deleteWeight(date: LocalDate) {
+        weightRepository.deleteWeight(date)
+    }
+
+    override suspend fun getLast30DaysChartData(): ChartData =
+        getChartDataForWindow(0)
+
+    override suspend fun getChartDataForWindow(windowIndex: Int): ChartData {
+        val today = getCurrentDate()
+        val (startDate, endDate) = windowRange(windowIndex, today)
+        val points = weightRepository.getWeights(startDate, endDate)
+        val lineTrend = when {
+            points.size < 2 -> WeightTrend.FLAT
+            else -> {
+                val last = points.last().weight
+                val prev = points[points.size - 2].weight
+                val diff = last - prev
+                when {
+                    diff > 0.2 -> WeightTrend.UP
+                    diff < -0.2 -> WeightTrend.DOWN
+                    else -> WeightTrend.FLAT
+                }
+            }
+        }
+        return ChartData(
+            points = points,
+            lineTrend = lineTrend,
+            startDate = startDate,
+            endDate = endDate
+        )
+    }
+
+    override suspend fun hasOlderWindow(windowIndex: Int): Boolean {
+        val today = getCurrentDate()
+        val (start, end) = windowRange(windowIndex + 1, today)
+        return weightRepository.getWeights(start, end).isNotEmpty()
+    }
+
+    private fun windowRange(windowIndex: Int, today: LocalDate): Pair<LocalDate, LocalDate> {
+        return if (windowIndex == 0) {
+            today.minus(30, DateTimeUnit.DAY) to today
+        } else {
+            val start = today.minus(30 * (windowIndex + 1), DateTimeUnit.DAY)
+            val end = today.minus(30 * windowIndex + 1, DateTimeUnit.DAY)
+            start to end
+        }
     }
 }

@@ -2,18 +2,15 @@ package com.chknkv.feature.main.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -24,7 +21,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,11 +30,12 @@ import androidx.compose.ui.unit.sp
 import com.chknkv.coredesignsystem.Module
 import com.chknkv.coredesignsystem.buttons.AcButton
 import com.chknkv.coredesignsystem.buttons.AcButtonStyle
-import com.chknkv.coredesignsystem.shimmered
 import com.chknkv.coredesignsystem.theming.AcTokens
 import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coredesignsystem.typography.Footnote1
 import com.chknkv.coredesignsystem.typography.Footnote1Secondary
+import com.chknkv.feature.main.model.domain.ChartData
+import com.chknkv.feature.main.presentation.components.WeightChart
 import com.chknkv.coresession.WeightRecord
 import com.chknkv.coreutils.getAppVersion
 import com.chknkv.coreutils.toFormattedString
@@ -84,7 +81,12 @@ fun RootMainScreen(component: RootMainComponent) {
         Column(modifier = Modifier.padding(paddingValues)) {
             Column(modifier = Modifier.fillMaxWidth().weight(1f)) {
                 TopContentBlock { action -> component.emitAction(action) }
-                StatisticBlock { action -> component.emitAction(action) }
+                StatisticBlock(
+                    chartData = uiResult.chartData,
+                    chartWindowIndex = uiResult.chartWindowIndex,
+                    chartCanSwipeRight = uiResult.chartCanSwipeRight,
+                    onAction = { action -> component.emitAction(action) }
+                )
                 MeasurementBlock(uiResult.lastSavedWeight) { action -> component.emitAction(action) }
             }
 
@@ -139,7 +141,13 @@ private fun TopContentBlock(onAction: (MainAction) -> Unit) {
 }
 
 @Composable
-private fun StatisticBlock(onAction: (MainAction) -> Unit) {
+private fun StatisticBlock(
+    chartData: ChartData,
+    chartWindowIndex: Int,
+    chartCanSwipeRight: Boolean,
+    onAction: (MainAction) -> Unit
+) {
+    val canSwipeLeft = chartWindowIndex > 0
     Module(outPaddingValues = PaddingValues(vertical = 4.dp)) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Footnote1(
@@ -148,13 +156,15 @@ private fun StatisticBlock(onAction: (MainAction) -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Box(
+            WeightChart(
+                chartData = chartData,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(128.dp)
-                    .padding(vertical = 12.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .shimmered()
+                    .padding(vertical = 12.dp),
+                canSwipeLeft = canSwipeLeft,
+                canSwipeRight = chartCanSwipeRight,
+                onSwipeLeft = { onAction(MainScreenAction.ChartSwipeLeft) },
+                onSwipeRight = { onAction(MainScreenAction.ChartSwipeRight) }
             )
 
             AcButton(

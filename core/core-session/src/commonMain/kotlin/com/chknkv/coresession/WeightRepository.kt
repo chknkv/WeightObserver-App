@@ -48,6 +48,13 @@ interface WeightRepository {
      * Clears all weight measurements from the database.
      */
     suspend fun clearWeights()
+
+    /**
+     * Deletes a weight record for a specific date.
+     *
+     * @param date The date of the measurement to delete.
+     */
+    suspend fun deleteWeight(date: LocalDate)
 }
 
 /**
@@ -84,5 +91,9 @@ internal class WeightRepositoryImpl(database: WeightDatabase) : WeightRepository
 
     override suspend fun clearWeights(): Unit = withContext(Dispatchers.IO) {
         queries.deleteAll()
+    }
+
+    override suspend fun deleteWeight(date: LocalDate): Unit = withContext(Dispatchers.IO) {
+        queries.deleteWeight(date.toString())
     }
 }

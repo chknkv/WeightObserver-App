@@ -21,3 +21,7 @@ LIMIT :limit OFFSET :offset;
 
 deleteAll:
 DELETE FROM WeightMeasurement;
+
+deleteWeight:
+DELETE FROM WeightMeasurement
+WHERE date = ?;

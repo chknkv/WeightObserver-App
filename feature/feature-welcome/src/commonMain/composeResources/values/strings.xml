@@ -4,13 +4,13 @@
     <string name="information_accept">Got it</string>
     <string name="information_accept_description">By clicking "Got it", you agree to the Terms of Use and acknowledge that you have read the information above</string>
     <string name="information_block_1_title">Not Medical Software</string>
-    <string name="information_block_1_subtile">The application is created solely for self-monitoring of weight. For medical advice and treatment plans, please consult a doctor</string>
+    <string name="information_block_1_subtitle">The application is created solely for self-monitoring of weight. For medical advice and treatment plans, please consult a doctor</string>
     <string name="information_block_2_title">Data Privacy</string>
-    <string name="information_block_2_subtile">We store all data locally on your device. We do not have access to your personal information, and the application does not send it to external servers</string>
+    <string name="information_block_2_subtitle">We store all data locally on your device. We do not have access to your personal information, and the application does not send it to external servers</string>
     <string name="information_block_3_title">Access Protection</string>
-    <string name="information_block_3_subtile">In the next step, you can set a passcode. Only you will see your data, even if your phone falls into the wrong hands</string>
+    <string name="information_block_3_subtitle">In the next step, you can set a passcode. Only you will see your data, even if your phone falls into the wrong hands</string>
     <string name="information_block_4_title">Data Safety</string>
-    <string name="information_block_4_subtile">When you delete the application, all data will be permanently erased as we do not store it in the cloud. Please keep this in mind when clearing your phone</string>
+    <string name="information_block_4_subtitle">When you delete the application, all data will be permanently erased as we do not store it in the cloud. Please keep this in mind when clearing your phone</string>
     <!-- End InformationScreen region -->
 
     <!-- CreatePasscodeScreen region -->

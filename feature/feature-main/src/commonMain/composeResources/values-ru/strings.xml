@@ -1,6 +1,6 @@
 <resources>
     <!-- MainScreen Region -->
-    <string name="main_last_saved_record">Последнее измерение: %1$s</string>
+    <string name="main_last_saved_record">Последнее измерение:&#160;%1$s</string>
     <string name="main_add_new_measurement">Добавить измерение</string>
     <string name="main_weight_unit">кг</string>
     <!-- End MainScreen Region -->
@@ -9,35 +9,35 @@
     <string name="settings_title">Настройки</string>
     <string name="settings_clear_data">Очистить данные</string>
     <string name="settings_clear_data_title">Вы уверены, что хотите очистить данные?</string>
-    <string name="settings_clear_data_subtitle">Очистка данных приведет к полному сбросу всех записей. Восстановить данные не получится</string>
+    <string name="settings_clear_data_subtitle">Очистка данных приведет к&#160;полному сбросу всех записей. Восстановить данные не получится</string>
     <string name="settings_clear_data_confirm">Очистить</string>
     <string name="settings_clear_data_cancel">Отмена</string>
     <string name="settings_info_title">Информация</string>
-    <string name="settings_info_subtitle">Ознакомьтесь с политикой конфиденциальности, условиями использования и другой информацией</string>
+    <string name="settings_info_subtitle">Ознакомьтесь с политикой конфиденциальности, условиями использования и&#160;другой информацией</string>
     <string name="settings_passcode_title">Код-пароль</string>
-    <string name="settings_passcode_subtitle">Установите или измените 5-значный код-пароль, чтобы защитить ваши данные о весе от посторонних глаз</string>
+    <string name="settings_passcode_subtitle">Установите или измените 5-значный код-пароль, чтобы защитить ваши данные о&#160;весе от посторонних глаз</string>
     <string name="settings_language_title">Язык</string>
     <string name="settings_language_subtitle">Выберите предпочтительный язык интерфейса приложения</string>
     <string name="settings_opensource_title">Open Source</string>
-    <string name="settings_opensource_subtitle">Изучите полный исходный код этого проекта в нашем репозитории на GitHub</string>
+    <string name="settings_opensource_subtitle">Изучите полный исходный код этого проекта в&#160;нашем репозитории на&#160;GitHub</string>
      <!-- End Settings Region -->
 
     <!-- Settings-Information Region -->
     <string name="information_title">Важная информация</string>
     <string name="information_accept">Понятно</string>
     <string name="information_block_1_title">Не является медицинским ПО</string>
-    <string name="information_block_1_subtitle">Приложение создано исключительно для самоконтроля веса. Для получения медицинских рекомендаций и планов лечения, пожалуйста, обратитесь к врачу</string>
-    <string name="information_block_2_title">Конфеденциальность данных</string>
-    <string name="information_block_2_subtitle">Мы храним все данные локально на вашем устройстве. У нас нет доступа к вашей личной информации, и приложение не отправляет её на внешние серверы</string>
+    <string name="information_block_1_subtitle">Приложение создано исключительно для самоконтроля веса. Для получения медицинских рекомендаций и&#160;планов лечения, пожалуйста, обратитесь к&#160;врачу</string>
+    <string name="information_block_2_title">Конфиденциальность данных</string>
+    <string name="information_block_2_subtitle">Мы храним все данные локально на&#160;вашем устройстве. У&#160;нас нет доступа к&#160;вашей личной информации, и&#160;приложение не отправляет её на&#160;внешние серверы</string>
     <string name="information_block_3_title">Защита доступа</string>
-    <string name="information_block_3_subtitle">На следующем шаге вы сможете установить код-пароль. Ваши данные будете видеть только вы, даже если телефон попадет в чужие руки</string>
+    <string name="information_block_3_subtitle">На&#160;следующем шаге вы сможете установить код-пароль. Ваши данные будете видеть только вы, даже если телефон попадет в&#160;чужие руки</string>
     <string name="information_block_4_title">Сохранность данных</string>
-    <string name="information_block_4_subtitle">При удалении приложения все данные будут безвозвратно стерты, так как мы не храним их в облаке. Учитывайте это при очистке телефона</string>
+    <string name="information_block_4_subtitle">При удалении приложения все данные будут безвозвратно стерты, так как мы не храним их в&#160;облаке. Учитывайте это при очистке телефона</string>
     <!-- End Settings-Information Region -->
 
     <!-- Settings-Languages Region -->
     <string name="settings_language_selection_title">Выбор языка</string>
-    <string name="settings_language_selection_subtitle">Выберите язык приложения. Его также можно настроить в настройках устойства</string>
+    <string name="settings_language_selection_subtitle">Выберите язык приложения. Его также можно настроить в&#160;настройках устройства</string>
     <string name="settings_language_accept">Понятно</string>
     <!-- End Settings-Languages Region -->
 
@@ -45,7 +45,7 @@
     <string name="measurement_title">Добавить новое измерение</string>
     <string name="measurement_cancel">Отмена</string>
     <string name="measurement_add">Добавить</string>
-    <string name="measurement_privacy_policy">Все данные о весе, которые вы вводите, остаются в памяти устройства. Мы не отправляем их на сторонние серверы</string>
+    <string name="measurement_privacy_policy">Все данные о&#160;весе, которые вы вводите, остаются в&#160;памяти устройства. Мы не отправляем их на&#160;сторонние серверы</string>
     <!-- End Measurement Region -->
 
     <!-- Statistic Region -->
@@ -53,23 +53,27 @@
     <string name="statistic_show">Посмотреть детальную статистику</string>
     <string name="statistic_ok">Понятно</string>
     <string name="statistic_no_data">Нет данных</string>
-    <string name="statistic_medical_disclaimer">Все данные и статистические показатели не несут медицинских целей. Они служат лишь для удобного личного контроля</string>
+    <string name="statistic_medical_disclaimer">Все данные и&#160;статистические показатели не несут медицинских целей. Они служат лишь для удобного личного контроля</string>
+    <string name="statistic_delete_alert_title">Удалить запись?</string>
+    <string name="statistic_delete_alert_subtitle">Вы уверены, что хотите удалить запись? Восстановить её не получится</string>
+    <string name="statistic_delete_alert_positive_action">Отмена</string>
+    <string name="statistic_delete_alert_negative_action">Удалить</string>
+    <string name="statistic_delete_hint">Зажмите элемент списка, чтобы удалить запись об&#160;измерении</string>
     <!-- End Statistic Region -->
 
     <!-- Passcode Settings Region -->
-    <string name="create_passcode_title_1">Придумайте пароль для входа</string>
-    <string name="create_passcode_title_2">Повторите пароль для входа</string>
+    <string name="create_passcode_title_1">Придумайте пароль для&#160;входа</string>
+    <string name="create_passcode_title_2">Повторите пароль для&#160;входа</string>
     <string name="create_passcode_skip">Пропустить</string>
-    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в приложение</string>
+    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в&#160;приложение</string>
     <string name="create_passcode_snackbar_password_not_matched">Пароли должны совпадать</string>
-    <string name="create_passcode_alert_title">Пропустить создание пароля для входа</string>
-    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для входа? Это можно сделать позже в настройках</string>
+    <string name="create_passcode_alert_title">Пропустить создание пароля для&#160;входа</string>
+    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для&#160;входа? Это можно сделать позже в&#160;настройках</string>
     <string name="create_passcode_alert_positive_action">Создать пароль</string>
     <string name="create_passcode_alert_negative_action">Пропустить</string>
-
-    <string name="enter_passcode_title">Введите пароль для изменения настроек</string>
-    <string name="enter_passcode_alert_title">Сбросить пароль для входа</string>
-    <string name="enter_passcode_alert_subtitle">Для восстановления пароля для входа придется сбросить все сохраненные данные. Сбросить?</string>
+    <string name="enter_passcode_title">Введите текущий пароль для&#160;изменения настроек</string>
+    <string name="enter_passcode_alert_title">Сбросить пароль для&#160;входа</string>
+    <string name="enter_passcode_alert_subtitle">Для&#160;восстановления пароля для&#160;входа придётся сбросить все сохраненные данные. Сбросить?</string>
     <string name="enter_passcode_alert_positive_action">Сбросить</string>
     <string name="enter_passcode_alert_negative_action">Отмена</string>
     <string name="enter_passcode_forget_passcode">Забыли код?</string>

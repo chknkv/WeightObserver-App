@@ -1,6 +1,7 @@
 package com.chknkv.weightobserver
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,9 @@ import java.util.Locale
  * Main android Activity of WeightObserver.
  */
 class WeightObserverMainActivity : ComponentActivity() {
+
+    private var lastUiModeNight: Int = Configuration.UI_MODE_NIGHT_UNDEFINED
+    private lateinit var rootComponent: WeightObserverRootComponent
 
     override fun attachBaseContext(newBase: Context) {
         val context = try {
@@ -37,12 +41,28 @@ class WeightObserverMainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val rootComponent = retainedComponent {
+        lastUiModeNight = applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+        rootComponent = retainedComponent {
             WeightObserverRootComponentImpl(
                 componentContext = it,
                 sessionRepository = get()
             )
         }
-        setContent { WeightObserverAppUiRoot(rootComponent) }
+        setAppContent()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val newUiModeNight = newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        if (newUiModeNight != lastUiModeNight) {
+            lastUiModeNight = newUiModeNight
+            setAppContent()
+        }
+    }
+
+    private fun setAppContent() {
+        val isDarkTheme = lastUiModeNight == Configuration.UI_MODE_NIGHT_YES
+        setContent { WeightObserverAppUiRoot(rootComponent, darkTheme = isDarkTheme) }
     }
 }

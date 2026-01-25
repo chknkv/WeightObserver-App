@@ -31,13 +31,13 @@ import weightobserver_project.feature.feature_welcome.generated.resources.inform
 import weightobserver_project.feature.feature_welcome.generated.resources.information_accept
 import weightobserver_project.feature.feature_welcome.generated.resources.information_accept_description
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_1_title
-import weightobserver_project.feature.feature_welcome.generated.resources.information_block_1_subtile
+import weightobserver_project.feature.feature_welcome.generated.resources.information_block_1_subtitle
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_2_title
-import weightobserver_project.feature.feature_welcome.generated.resources.information_block_2_subtile
+import weightobserver_project.feature.feature_welcome.generated.resources.information_block_2_subtitle
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_3_title
-import weightobserver_project.feature.feature_welcome.generated.resources.information_block_3_subtile
+import weightobserver_project.feature.feature_welcome.generated.resources.information_block_3_subtitle
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_4_title
-import weightobserver_project.feature.feature_welcome.generated.resources.information_block_4_subtile
+import weightobserver_project.feature.feature_welcome.generated.resources.information_block_4_subtitle
 
 /**
  * UI screen for [InformationComponent].
@@ -79,7 +79,7 @@ fun InformationScreen(component: InformationComponent) {
                     modifier = Modifier.padding(vertical = 8.dp),
                     iconRes = Res.drawable.ic_hospital,
                     title = stringResource(Res.string.information_block_1_title),
-                    subtitle = stringResource(Res.string.information_block_1_subtile),
+                    subtitle = stringResource(Res.string.information_block_1_subtitle),
                     maxSubtitle = 8,
                     iconTint = AcTokens.IconPrimary.getThemedColor()
                 )
@@ -88,7 +88,7 @@ fun InformationScreen(component: InformationComponent) {
                     modifier = Modifier.padding(vertical = 8.dp),
                     iconRes = Res.drawable.ic_privacy,
                     title = stringResource(Res.string.information_block_2_title),
-                    subtitle = stringResource(Res.string.information_block_2_subtile),
+                    subtitle = stringResource(Res.string.information_block_2_subtitle),
                     maxSubtitle = 8,
                     iconTint = AcTokens.IconPrimary.getThemedColor()
                 )
@@ -97,7 +97,7 @@ fun InformationScreen(component: InformationComponent) {
                     modifier = Modifier.padding(vertical = 8.dp),
                     iconRes = Res.drawable.ic_lock,
                     title = stringResource(Res.string.information_block_3_title),
-                    subtitle = stringResource(Res.string.information_block_3_subtile),
+                    subtitle = stringResource(Res.string.information_block_3_subtitle),
                     maxSubtitle = 8,
                     iconTint = AcTokens.IconPrimary.getThemedColor()
                 )
@@ -106,7 +106,7 @@ fun InformationScreen(component: InformationComponent) {
                     modifier = Modifier.padding(vertical = 8.dp),
                     iconRes = Res.drawable.ic_info,
                     title = stringResource(Res.string.information_block_4_title),
-                    subtitle = stringResource(Res.string.information_block_4_subtile),
+                    subtitle = stringResource(Res.string.information_block_4_subtitle),
                     maxSubtitle = 8,
                     iconTint = AcTokens.IconPrimary.getThemedColor(),
                     isDivider = false

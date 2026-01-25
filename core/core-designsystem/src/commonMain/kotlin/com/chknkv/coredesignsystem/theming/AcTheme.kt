@@ -17,15 +17,16 @@ object AcTheme {
 /**
  * Main UI-theme of application
  *
- * @param darkTheme true - dark theme, false - light theme
+ * @param darkTheme explicit override: true = dark, false = light, null = use [isSystemInDarkTheme]
  * @param content main content
  */
 @Composable
 fun AcTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean? = null,
     content: @Composable () -> Unit
 ) {
-    CompositionLocalProvider(LocalTokens provides getColorsThemeTokens(darkTheme)) {
+    val isDark = darkTheme ?: isSystemInDarkTheme()
+    CompositionLocalProvider(LocalTokens provides getColorsThemeTokens(isDark)) {
         content()
     }
 }

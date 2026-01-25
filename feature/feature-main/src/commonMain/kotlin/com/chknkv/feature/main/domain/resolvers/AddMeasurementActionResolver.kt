@@ -40,7 +40,16 @@ class AddMeasurementActionResolver(
                         emit(ResolverResult.Mutation { it.copy(isAddMeasurementVisible = false) })
 
                         val lastWeight = interactor.getLastWeight()
-                        emit(ResolverResult.Mutation { it.copy(lastSavedWeight = lastWeight) })
+                        val chartData = interactor.getChartDataForWindow(0)
+                        val canSwipeRight = interactor.hasOlderWindow(0)
+                        emit(ResolverResult.Mutation {
+                            it.copy(
+                                lastSavedWeight = lastWeight,
+                                chartData = chartData,
+                                chartWindowIndex = 0,
+                                chartCanSwipeRight = canSwipeRight
+                            )
+                        })
                     }
                 }
             }

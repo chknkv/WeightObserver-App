@@ -28,6 +28,12 @@ class DetailedStatisticActionResolver(
         when (action) {
             is DetailedStatisticAction.HideDetailedStatistic -> {
                 emit(ResolverResult.Mutation { it.copy(isDetailedStatisticVisible = false) })
+                val idx = currentState.chartWindowIndex
+                val chartData = interactor.getChartDataForWindow(idx)
+                val canSwipeRight = interactor.hasOlderWindow(idx)
+                emit(ResolverResult.Mutation {
+                    it.copy(chartData = chartData, chartCanSwipeRight = canSwipeRight)
+                })
             }
 
             is DetailedStatisticAction.LoadMoreWeights -> {
@@ -58,6 +64,50 @@ class DetailedStatisticActionResolver(
                         })
                     }
                 }
+            }
+
+            is DetailedStatisticAction.DeleteWeight -> {
+                try {
+                    interactor.deleteWeight(action.date)
+                    val updatedLastWeight = interactor.getLastWeight()
+                    emit(ResolverResult.Mutation {
+                        val stats = it.detailedStatisticUiResult
+                        it.copy(
+                            lastSavedWeight = updatedLastWeight,
+                            detailedStatisticUiResult = stats.copy(
+                                records = stats.records.filter { record -> record.record.date != action.date },
+                                isDeleteAlertVisible = false,
+                                deleteAlertDate = null
+                            )
+                        )
+                    })
+                } catch (_: Exception) {
+
+                }
+            }
+
+            is DetailedStatisticAction.ShowDeleteAlert -> {
+                emit(ResolverResult.Mutation {
+                    val stats = it.detailedStatisticUiResult
+                    it.copy(
+                        detailedStatisticUiResult = stats.copy(
+                            isDeleteAlertVisible = true,
+                            deleteAlertDate = action.date
+                        )
+                    )
+                })
+            }
+
+            is DetailedStatisticAction.HideDeleteAlert -> {
+                emit(ResolverResult.Mutation {
+                    val stats = it.detailedStatisticUiResult
+                    it.copy(
+                        detailedStatisticUiResult = stats.copy(
+                            isDeleteAlertVisible = false,
+                            deleteAlertDate = null
+                        )
+                    )
+                })
             }
         }
     }

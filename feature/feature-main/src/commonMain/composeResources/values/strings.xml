@@ -54,6 +54,11 @@
     <string name="statistic_ok">Ok</string>
     <string name="statistic_no_data">No data</string>
     <string name="statistic_medical_disclaimer">All data and statistics are not intended for medical purposes. They serve only for convenient personal monitoring</string>
+    <string name="statistic_delete_alert_title">Delete record?</string>
+    <string name="statistic_delete_alert_subtitle">Are you sure you want to delete the record? It cannot be restored</string>
+    <string name="statistic_delete_alert_positive_action">Cancel</string>
+    <string name="statistic_delete_alert_negative_action">Delete</string>
+    <string name="statistic_delete_hint">Long press a list item to delete a measurement record</string>
     <!-- End Statistic Region -->
 
     <!-- Passcode Settings Region -->
@@ -66,8 +71,7 @@
     <string name="create_passcode_alert_subtitle">Are you sure you want to skip creating a login passcode? You can do this later in settings</string>
     <string name="create_passcode_alert_positive_action">Create passcode</string>
     <string name="create_passcode_alert_negative_action">Skip</string>
-
-    <string name="enter_passcode_title">Enter passcode to change settings</string>
+    <string name="enter_passcode_title">Enter current passcode to change settings</string>
     <string name="enter_passcode_alert_title">Reset login passcode</string>
     <string name="enter_passcode_alert_subtitle">To reset the login passcode, all saved data will have to be reset. Reset?</string>
     <string name="enter_passcode_alert_positive_action">Reset</string>
