@@ -6,10 +6,14 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
+import com.chknkv.coreauthentication.AuthenticationFactory
+import com.chknkv.coreauthentication.models.domain.handles.enterpasscode.EnterPasscodeHandles
+import com.chknkv.coreauthentication.presentation.enterpasscode.EnterPasscodeComponent
+import com.chknkv.coreauthentication.domain.BiometricAuthenticator
+import com.chknkv.coreauthentication.domain.PasscodeRepository
 import com.chknkv.coresession.SessionRepository
-import com.chknkv.feature.welcome.presentation.RootWelcomeComponent
 import com.chknkv.feature.main.presentation.RootMainComponent
-import com.chknkv.feature.welcome.presentation.enterPasscode.EnterPasscodeComponent
+import com.chknkv.feature.welcome.presentation.RootWelcomeComponent
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
@@ -45,7 +49,7 @@ interface WeightObserverRootComponent {
  */
 class WeightObserverRootComponentImpl(
     componentContext: ComponentContext,
-    private val sessionRepository: SessionRepository,
+    private val sessionRepository: SessionRepository, // Only for isFirstAuthorized
 ) : WeightObserverRootComponent, ComponentContext by componentContext, KoinComponent {
 
     private val navigation = StackNavigation<RootConfig>()
@@ -59,8 +63,9 @@ class WeightObserverRootComponentImpl(
     )
 
     private fun getInitialConfig(): RootConfig {
+        val passcodeRepository: PasscodeRepository = get()
         return if (sessionRepository.isFirstAuthorized) {
-            if (sessionRepository.getPasscodeHash() != null) {
+            if (passcodeRepository.getPasscodeHash() != null) {
                 RootConfig.EnterPasscode
             } else {
                 RootConfig.Main
@@ -108,13 +113,16 @@ class WeightObserverRootComponentImpl(
         )
 
         RootConfig.EnterPasscode -> WeightObserverRootComponent.RootChild.EnterPasscode(
-            component = get<EnterPasscodeComponent> {
-                parametersOf(
-                    context,
-                    { navigation.replaceAll(RootConfig.Main) },
-                    { navigation.replaceAll(RootConfig.Auth) }
+            component = AuthenticationFactory.createEnterPasscodeComponent(
+                componentContext = context,
+                passcodeRepository = get<PasscodeRepository>(),
+                biometricAuthenticator = get<BiometricAuthenticator>(),
+                sessionRepository = sessionRepository,
+                handles = EnterPasscodeHandles(
+                    onAuthSuccess = { navigation.replaceAll(RootConfig.Main) },
+                    onForgotPasscode = { navigation.replaceAll(RootConfig.Auth) }
                 )
-            }
+            )
         )
     }
 

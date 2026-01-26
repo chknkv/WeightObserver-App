@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.napier)
 
+            implementation(project(":core:core-authentication"))
             implementation(project(":core:core-designsystem"))
             implementation(project(":core:core-utils"))
             implementation(project(":core:core-session"))

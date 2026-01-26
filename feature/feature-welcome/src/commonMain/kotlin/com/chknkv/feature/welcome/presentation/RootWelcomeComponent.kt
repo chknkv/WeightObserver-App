@@ -8,12 +8,19 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.pushNew
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
+import com.chknkv.coreauthentication.AuthenticationFactory
+import com.chknkv.coreauthentication.models.domain.handles.biometry.BiometryHandles
+import com.chknkv.coreauthentication.models.domain.handles.createpasscode.CreatePasscodeHandles
+import com.chknkv.coreauthentication.presentation.biometry.BiometryComponent
+import com.chknkv.coreauthentication.presentation.createpasscode.CreatePasscodeComponent
+import com.chknkv.coreauthentication.domain.BiometricAuthenticator
+import com.chknkv.coreauthentication.domain.PasscodeRepository
 import com.chknkv.coresession.SessionRepository
-import com.chknkv.feature.welcome.presentation.createPasscode.CreatePasscodeComponent
-import com.chknkv.feature.welcome.presentation.createPasscode.CreatePasscodeComponentImpl
 import com.chknkv.feature.welcome.presentation.information.InformationComponent
 import com.chknkv.feature.welcome.presentation.information.InformationComponentImpl
 import kotlinx.serialization.Serializable
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 
 /**
  * Root component for the Welcome Feature flow.
@@ -21,6 +28,7 @@ import kotlinx.serialization.Serializable
  * Manages navigation between onboarding screens:
  * 1. [InformationComponent] - Information screen.
  * 2. [CreatePasscodeComponent] - Passcode creation.
+ * 3. [BiometryComponent] - Biometrics enable/skip (after passcode created).
  */
 interface RootWelcomeComponent {
     /**
@@ -54,6 +62,12 @@ interface RootWelcomeComponent {
          * @property component Instance of the passcode creation component.
          */
         data class CreatePasscode(val component: CreatePasscodeComponent) : Child()
+
+        /**
+         * Biometrics enable/skip screen (after passcode created).
+         * @property component Instance of the biometry component.
+         */
+        data class Biometry(val component: BiometryComponent) : Child()
     }
 }
 
@@ -68,7 +82,7 @@ class RootWelcomeComponentImpl(
     componentContext: ComponentContext,
     private val sessionRepository: SessionRepository,
     private val onAuthSuccess: () -> Unit
-) : RootWelcomeComponent, ComponentContext by componentContext {
+) : RootWelcomeComponent, ComponentContext by componentContext, KoinComponent {
 
     private val navigation = StackNavigation<Config>()
 
@@ -93,11 +107,30 @@ class RootWelcomeComponentImpl(
             )
 
             Config.CreatePasscode -> RootWelcomeComponent.Child.CreatePasscode(
-                CreatePasscodeComponentImpl(
+                AuthenticationFactory.createPasscodeComponent(
                     componentContext = componentContext,
-                    sessionRepository = sessionRepository,
-                    onNext = ::onCompleteAuth,
-                    onBack = { navigation.pop() }
+                    passcodeRepository = get<PasscodeRepository>(),
+                    biometricAuthenticator = get<BiometricAuthenticator>(),
+                    handles = CreatePasscodeHandles(
+                        onPasscodeCreated = { showBiometry ->
+                            if (showBiometry) navigation.pushNew(Config.Biometry)
+                            else onCompleteAuth()
+                        },
+                        onPasscodeSkipped = { onCompleteAuth() },
+                        onBack = { navigation.pop() }
+                    )
+                )
+            )
+
+            Config.Biometry -> RootWelcomeComponent.Child.Biometry(
+                AuthenticationFactory.createBiometryComponent(
+                    componentContext = componentContext,
+                    passcodeRepository = get<PasscodeRepository>(),
+                    biometricAuthenticator = get<BiometricAuthenticator>(),
+                    handles = BiometryHandles(
+                        onBiometricEnabled = { onCompleteAuth() },
+                        onBiometricSkipped = { onCompleteAuth() }
+                    )
                 )
             )
         }
@@ -122,5 +155,8 @@ class RootWelcomeComponentImpl(
 
         @Serializable
         data object CreatePasscode : Config
+
+        @Serializable
+        data object Biometry : Config
     }
 }

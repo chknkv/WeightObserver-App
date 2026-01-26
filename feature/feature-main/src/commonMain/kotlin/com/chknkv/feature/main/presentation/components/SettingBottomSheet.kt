@@ -23,11 +23,10 @@ import com.chknkv.coreutils.openUrl
 import com.chknkv.feature.main.model.presentation.MainAction
 import com.chknkv.feature.main.model.presentation.uiResult.SettingsUiResult
 import com.chknkv.feature.main.model.presentation.uiAction.SettingsAction
-import com.chknkv.feature.main.model.presentation.uiResult.PasscodeSettingsUiEffect
+import com.arkivanov.decompose.ComponentContext
 import com.chknkv.feature.main.presentation.components.settings.InformationBottomSheet
 import com.chknkv.feature.main.presentation.components.settings.LanguageBottomSheet
 import com.chknkv.feature.main.presentation.components.settings.PasscodeSettingsBottomSheet
-import kotlinx.coroutines.flow.SharedFlow
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.feature.feature_main.generated.resources.Res
 import weightobserver_project.feature.feature_main.generated.resources.ic_code
@@ -62,8 +61,8 @@ fun SettingBottomSheet(
     onAction: (MainAction) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    settingsUiResult: SettingsUiResult,
-    passcodeEffect: SharedFlow<PasscodeSettingsUiEffect>
+    componentContext: ComponentContext,
+    settingsUiResult: SettingsUiResult
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -171,9 +170,7 @@ fun SettingBottomSheet(
 
     if (settingsUiResult.isPasscodeSettingsVisible) {
         PasscodeSettingsBottomSheet(
-            uiResult = settingsUiResult.passcodeSettingsUiResult,
-            effects = passcodeEffect,
-            onAction = { onAction(it) },
+            componentContext = componentContext,
             onDismissRequest = { onAction(SettingsAction.HidePasscodeSettings) }
         )
     }

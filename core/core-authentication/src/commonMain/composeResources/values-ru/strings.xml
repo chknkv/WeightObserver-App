@@ -1,0 +1,27 @@
+<resources>
+    <!-- CreatePasscode -->
+    <string name="create_passcode_title_1">Придумайте пароль для&#160;входа</string>
+    <string name="create_passcode_title_2">Повторите пароль для&#160;входа</string>
+    <string name="create_passcode_skip">Пропустить</string>
+    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в приложение</string>
+    <string name="create_passcode_snackbar_password_not_matched">Пароли должны совпадать</string>
+    <string name="create_passcode_alert_title">Пропустить создание пароля для&#160;входа</string>
+    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для&#160;входа? Это можно сделать позже в&#160;настройках</string>
+    <string name="create_passcode_alert_positive_action">Создать пароль</string>
+    <string name="create_passcode_alert_negative_action">Пропустить</string>
+
+    <!-- Biometry -->
+    <string name="biometry_title">Использовать биометрию для входа</string>
+    <string name="biometry_subtitle">Можно использовать отпечаток пальца или Face ID для быстрого доступа</string>
+    <string name="biometry_enable">Включить биометрию</string>
+    <string name="biometry_skip">Пропустить</string>
+
+    <!-- EnterPasscode -->
+    <string name="enter_passcode_title">Введите пароль для входа в приложение</string>
+    <string name="enter_passcode_alert_title">Сбросить пароль для&#160;входа</string>
+    <string name="enter_passcode_alert_subtitle">Для&#160;восстановления пароля для&#160;входа придётся сбросить все сохраненные данные. Сбросить?</string>
+    <string name="enter_passcode_alert_positive_action">Сбросить</string>
+    <string name="enter_passcode_alert_negative_action">Отмена</string>
+    <string name="enter_passcode_forget_passcode">Забыли код?</string>
+    <string name="enter_passcode_incorrect_passcode">Вы ввели некорректный пароль</string>
+</resources>

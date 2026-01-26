@@ -42,6 +42,7 @@ kotlin {
             implementation(libs.napier)
             implementation(libs.kotlinx.datetime)
 
+            implementation(project(":core:core-authentication"))
             implementation(project(":core:core-designsystem"))
             implementation(project(":core:core-utils"))
             implementation(project(":core:core-session"))

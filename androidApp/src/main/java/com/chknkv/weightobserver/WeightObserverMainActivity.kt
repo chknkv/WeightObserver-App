@@ -3,9 +3,9 @@ package com.chknkv.weightobserver
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.fragment.app.FragmentActivity
 import com.arkivanov.decompose.retainedComponent
 import com.chknkv.coresession.LanguageManager
 import org.koin.android.ext.android.get
@@ -15,7 +15,7 @@ import java.util.Locale
 /**
  * Main android Activity of WeightObserver.
  */
-class WeightObserverMainActivity : ComponentActivity() {
+class WeightObserverMainActivity : FragmentActivity() {
 
     private var lastUiModeNight: Int = Configuration.UI_MODE_NIGHT_UNDEFINED
     private lateinit var rootComponent: WeightObserverRootComponent

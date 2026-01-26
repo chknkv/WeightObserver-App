@@ -102,8 +102,8 @@ fun RootMainScreen(component: RootMainComponent) {
         SettingBottomSheet(
             onAction = { action -> component.emitAction(action) },
             onDismissRequest = { component.emitAction(SettingsAction.HideSettings) },
-            settingsUiResult = uiResult.settingsUiResult,
-            passcodeEffect = component.passcodeEffect
+            componentContext = component.componentContext,
+            settingsUiResult = uiResult.settingsUiResult
         )
     }
 

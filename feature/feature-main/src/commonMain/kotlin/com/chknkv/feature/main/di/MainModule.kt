@@ -18,7 +18,8 @@ val featureMainModule = module {
     single<MainScreenInteractor> {
         MainScreenInteractorImpl(
             weightRepository = get(),
-            sessionRepository = get()
+            sessionRepository = get(), // Only for clearAll() on signOut
+            passcodeRepository = get()
         )
     }
 

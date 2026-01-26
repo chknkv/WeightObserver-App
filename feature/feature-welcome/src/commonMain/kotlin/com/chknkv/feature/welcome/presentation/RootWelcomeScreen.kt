@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
-import com.chknkv.feature.welcome.presentation.createPasscode.CreatePasscodeScreen
+import com.chknkv.coreauthentication.presentation.biometry.BiometryScreen
+import com.chknkv.coreauthentication.presentation.createpasscode.CreatePasscodeScreen
 import com.chknkv.feature.welcome.presentation.information.InformationScreen
 
 /**
@@ -24,6 +25,7 @@ fun RootWelcomeScreen(component: RootWelcomeComponent) {
         when (val child = it.instance) {
             is RootWelcomeComponent.Child.Information -> InformationScreen(child.component)
             is RootWelcomeComponent.Child.CreatePasscode -> CreatePasscodeScreen(child.component)
+            is RootWelcomeComponent.Child.Biometry -> BiometryScreen(child.component)
         }
     }
 }

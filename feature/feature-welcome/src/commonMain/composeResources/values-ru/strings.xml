@@ -13,28 +13,6 @@
     <string name="information_block_4_subtitle">При удалении приложения все данные будут безвозвратно стерты, так как мы не храним их в&#160;облаке. Учитывайте это при очистке телефона</string>
     <!-- End InformationScreen region -->
 
-    <!-- CreatePasscodeScreen region -->
-    <string name="create_passcode_title_1">Придумайте пароль для&#160;входа</string>
-    <string name="create_passcode_title_2">Повторите пароль для&#160;входа</string>
-    <string name="create_passcode_skip">Пропустить</string>
-    <string name="create_passcode_subtitle">Данный пароль будет использоваться для входа в приложение</string>
-    <string name="create_passcode_snackbar_password_not_matched">Пароли должны совпадать</string>
-    <string name="create_passcode_alert_title">Пропустить создание пароля для&#160;входа</string>
-    <string name="create_passcode_alert_subtitle">Вы уверены, что хотите пропустить создание пароля для&#160;входа? Это можно сделать позже в&#160;настройках</string>
-    <string name="create_passcode_alert_positive_action">Создать пароль</string>
-    <string name="create_passcode_alert_negative_action">Пропустить</string>
-    <!-- End CreatePasscodeScreen region -->
-
-    <!-- EnterPasscodeScreen region -->
-    <string name="enter_passcode_title">Введите пароль для входа в приложение</string>
-    <string name="enter_passcode_alert_title">Сбросить пароль для&#160;входа</string>
-    <string name="enter_passcode_alert_subtitle">Для&#160;восстановления пароля для&#160;входа придётся сбросить все сохраненные данные. Сбросить?</string>
-    <string name="enter_passcode_alert_positive_action">Сбросить</string>
-    <string name="enter_passcode_alert_negative_action">Отмена</string>
-    <string name="enter_passcode_forget_passcode">Забыли код?</string>
-    <string name="enter_passcode_incorrect_passcode">Вы ввели некорректный пароль</string>
-    <!-- End EnterPasscodeScreen region -->
-
     <!-- SelectLanguageScreen region -->
     <string name="select_language_title">Язык интерфейса</string>
     <string name="select_language_subtitle">Выберите удобный для&#160;вас язык интерфейса. Если передумаете, его всегда можно сменить в&#160;настройках</string>

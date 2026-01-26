@@ -4,6 +4,7 @@ import android.app.Application
 import com.chknkv.coresession.LanguageManager
 import com.chknkv.coresession.coreSessionModule
 import com.chknkv.coresession.coreStorageModule
+import com.chknkv.coreauthentication.di.coreAuthenticationModule
 import com.chknkv.coreutils.appContext
 import com.chknkv.feature.main.di.featureMainModule
 import com.chknkv.feature.welcome.di.featureWelcomeModule
@@ -28,6 +29,7 @@ class WeightObserverApplication : Application() {
             modules(
                 coreSessionModule,
                 coreStorageModule,
+                coreAuthenticationModule,
                 featureWelcomeModule,
                 featureMainModule
             )

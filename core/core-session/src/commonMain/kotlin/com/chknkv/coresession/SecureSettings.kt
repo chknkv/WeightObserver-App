@@ -29,6 +29,7 @@ val coreSessionModule = module {
     single<LanguageManager> {
         LanguageManagerImpl(settings = get(SECURE_SETTINGS_QUALIFIER))
     }
+
 }
 
 /**

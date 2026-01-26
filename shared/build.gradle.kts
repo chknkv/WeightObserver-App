@@ -46,6 +46,7 @@ kotlin {
             api(project(":core:core-designsystem"))
             api(project(":core:core-utils"))
             api(project(":core:core-session"))
+            api(project(":core:core-authentication"))
 
             api(project(":feature:feature-welcome"))
             api(project(":feature:feature-main"))

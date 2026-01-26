@@ -7,6 +7,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.chknkv.coresession.SessionRepository
 import com.chknkv.coresession.coreSessionModule
 import com.chknkv.coresession.coreStorageModule
+import com.chknkv.coreauthentication.di.coreAuthenticationModule
 import com.chknkv.feature.main.di.featureMainModule
 import com.chknkv.feature.welcome.di.featureWelcomeModule
 import io.github.aakira.napier.DebugAntilog
@@ -38,6 +39,7 @@ private fun startKoinDI() = startKoin {
     modules(
         coreSessionModule,
         coreStorageModule,
+        coreAuthenticationModule,
         featureWelcomeModule,
         featureMainModule
     )

@@ -3,6 +3,7 @@ package com.chknkv.feature.main.domain
 import com.chknkv.coresession.SessionRepository
 import com.chknkv.coresession.WeightRecord
 import com.chknkv.coresession.WeightRepository
+import com.chknkv.coreauthentication.domain.PasscodeRepository
 import com.chknkv.coreutils.getCurrentDate
 import com.chknkv.feature.main.model.domain.ChartData
 import com.chknkv.feature.main.model.domain.WeightRecordWithTrend
@@ -93,7 +94,8 @@ interface MainScreenInteractor {
  */
 class MainScreenInteractorImpl(
     private val weightRepository: WeightRepository,
-    private val sessionRepository: SessionRepository
+    private val sessionRepository: SessionRepository,
+    private val passcodeRepository: PasscodeRepository
 ) : MainScreenInteractor {
 
     override suspend fun saveWeight(weight: Double) {
@@ -141,15 +143,15 @@ class MainScreenInteractorImpl(
     }
 
     override suspend fun hasPasscode(): Boolean {
-        return sessionRepository.getPasscodeHash() != null
+        return passcodeRepository.getPasscodeHash() != null
     }
 
     override suspend fun checkPasscode(passcode: String): Boolean {
-        return sessionRepository.getPasscodeHash() == passcode
+        return passcodeRepository.getPasscodeHash() == passcode
     }
 
     override suspend fun savePasscode(passcode: String?) {
-        sessionRepository.savePasscodeHash(passcode)
+        passcodeRepository.savePasscodeHash(passcode)
     }
 
     override suspend fun deleteWeight(date: LocalDate) {

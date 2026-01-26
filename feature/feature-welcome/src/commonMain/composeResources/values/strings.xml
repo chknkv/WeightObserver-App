@@ -13,28 +13,6 @@
     <string name="information_block_4_subtitle">When you delete the application, all data will be permanently erased as we do not store it in the cloud. Please keep this in mind when clearing your phone</string>
     <!-- End InformationScreen region -->
 
-    <!-- CreatePasscodeScreen region -->
-    <string name="create_passcode_title_1">Create a login passcode</string>
-    <string name="create_passcode_title_2">Repeat login passcode</string>
-    <string name="create_passcode_skip">Skip</string>
-    <string name="create_passcode_subtitle">This passcode will be used to log in to the application</string>
-    <string name="create_passcode_snackbar_password_not_matched">Passcodes must match</string>
-    <string name="create_passcode_alert_title">Skip creating a login passcode</string>
-    <string name="create_passcode_alert_subtitle">Are you sure you want to skip creating a login passcode? You can do this later in settings</string>
-    <string name="create_passcode_alert_positive_action">Create passcode</string>
-    <string name="create_passcode_alert_negative_action">Skip</string>
-    <!-- End CreatePasscodeScreen region -->
-
-    <!-- EnterPasscodeScreen region -->
-    <string name="enter_passcode_title">Enter passcode to log in</string>
-    <string name="enter_passcode_alert_title">Reset login passcode</string>
-    <string name="enter_passcode_alert_subtitle">To reset the login passcode, all saved data will have to be reset. Reset?</string>
-    <string name="enter_passcode_alert_positive_action">Reset</string>
-    <string name="enter_passcode_alert_negative_action">Cancel</string>
-    <string name="enter_passcode_forget_passcode">Forgot code?</string>
-    <string name="enter_passcode_incorrect_passcode">You entered an incorrect passcode</string>
-    <!-- End EnterPasscodeScreen region -->
-
     <!-- SelectLanguageScreen region -->
     <string name="select_language_title">Interface Language</string>
     <string name="select_language_subtitle">Select a preferred language for the interface. You can always change it later in settings</string>

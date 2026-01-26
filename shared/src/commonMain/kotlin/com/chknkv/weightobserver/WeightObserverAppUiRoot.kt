@@ -11,7 +11,7 @@ import com.chknkv.coredesignsystem.theming.AcTheme
 import com.chknkv.coresession.LanguageManager
 import com.chknkv.feature.welcome.presentation.RootWelcomeScreen
 import com.chknkv.feature.main.presentation.RootMainScreen
-import com.chknkv.feature.welcome.presentation.enterPasscode.EnterPasscodeScreen
+import com.chknkv.coreauthentication.presentation.enterpasscode.EnterPasscodeScreen
 import org.koin.compose.koinInject
 
 /**

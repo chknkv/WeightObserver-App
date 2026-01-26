@@ -7,6 +7,7 @@ android-targetSdk = "36"
 # Project
 agp = "8.13.2"
 androidx-activity = "1.12.2"
+androidx-biometric = "1.1.0"
 androidx-lifecycle = "2.9.6"
 androidx-security = "1.1.0"
 kotlin = "2.3.0"
@@ -54,6 +55,7 @@ sqldelight-primitive = { module = "app.cash.sqldelight:primitive-adapters", vers
 # Multiplatform Settings
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx-security" }
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "androidx-biometric" }
 
 # Napier
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }

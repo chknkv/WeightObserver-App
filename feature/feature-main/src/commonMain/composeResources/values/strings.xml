@@ -78,6 +78,5 @@
     <string name="enter_passcode_alert_negative_action">Cancel</string>
     <string name="enter_passcode_forget_passcode">Forgot code?</string>
     <string name="enter_passcode_incorrect_passcode">You entered an incorrect passcode</string>
-    <string name="passcode_created_success">New passcode successfully created</string>
     <!-- End Passcode Settings Region -->
 </resources>

@@ -78,6 +78,5 @@
     <string name="enter_passcode_alert_negative_action">Отмена</string>
     <string name="enter_passcode_forget_passcode">Забыли код?</string>
     <string name="enter_passcode_incorrect_passcode">Вы ввели некорректный пароль</string>
-    <string name="passcode_created_success">Новый пароль был успешно создан</string>
     <!-- End Passcode Settings Region -->
 </resources>
