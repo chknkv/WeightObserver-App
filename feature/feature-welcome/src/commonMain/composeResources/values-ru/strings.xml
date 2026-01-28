@@ -3,6 +3,8 @@
     <string name="information_title">Важная информация</string>
     <string name="information_accept">Понятно</string>
     <string name="information_accept_description">Нажимая кнопку «Понятно», вы соглашаетесь с&#160;условиями использования и&#160;подтверждаете, что ознакомились с&#160;информацией выше</string>
+    <string name="information_about_title">О чём это приложение</string>
+    <string name="information_about_subtitle">Приложение для контроля веса. Один раз в&#160;день указывайте измерение, затем отслеживайте, как менялся ваш вес на&#160;протяжении периода</string>
     <string name="information_block_1_title">Не является медицинским ПО</string>
     <string name="information_block_1_subtitle">Приложение создано исключительно для самоконтроля веса. Для получения медицинских рекомендаций и&#160;планов лечения, пожалуйста, обратитесь к&#160;врачу</string>
     <string name="information_block_2_title">Конфиденциальность данных</string>

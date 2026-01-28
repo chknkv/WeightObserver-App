@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,12 +21,14 @@ import com.chknkv.coredesignsystem.theming.AcTokens
 import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coredesignsystem.typography.Body3Secondary
 import com.chknkv.coredesignsystem.typography.Headline3
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import weightobserver_project.core.core_authentication.generated.resources.Res
 import weightobserver_project.core.core_authentication.generated.resources.biometry_enable
 import weightobserver_project.core.core_authentication.generated.resources.biometry_skip
 import weightobserver_project.core.core_authentication.generated.resources.biometry_subtitle
 import weightobserver_project.core.core_authentication.generated.resources.biometry_title
+import weightobserver_project.core.core_authentication.generated.resources.ic_biometry
 
 /**
  * UI screen for [BiometryComponent]. Enable or skip biometrics via [DualAcButtonVertical].
@@ -65,6 +69,16 @@ fun BiometryScreen(component: BiometryComponent) {
                 Body3Secondary(
                     text = stringResource(Res.string.biometry_subtitle),
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                )
+
+                Icon(
+                    painter = painterResource(Res.drawable.ic_biometry),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(vertical = 16.dp)
+                        .weight(1f)
+                        .size(164.dp),
+                    tint = AcTokens.IconPrimary.getThemedColor()
                 )
             }
 

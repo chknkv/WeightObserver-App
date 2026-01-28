@@ -13,12 +13,13 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chknkv.coreauthentication.models.presentation.uiAction.enterpasscode.EnterPasscodeUiAction
 import com.chknkv.coreauthentication.models.presentation.uiAction.enterpasscode.EnterPasscodeUiEffect
 import com.chknkv.coreauthentication.presentation.keyboard.PasscodeKeyboard
@@ -51,25 +52,18 @@ import weightobserver_project.core.core_authentication.generated.resources.enter
  */
 @Composable
 fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
-    val uiResult by component.uiResult.collectAsState()
+    val uiResult by component.uiResult.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val snackbarMessage = stringResource(Res.string.enter_passcode_incorrect_passcode)
     val biometricContext = getBiometricContext()
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(Unit) { component.initLoadEnterPasscodeScreen() }
+    val enteredDigits = remember { derivedStateOf { uiResult.enteredDigits } }
+    val isBiometricAvailable = remember { derivedStateOf { uiResult.isBiometricAvailable } }
+    val isShowForgotDialog = remember { derivedStateOf { uiResult.isShowForgotDialog } }
 
-    LaunchedEffect(biometricContext, uiResult.isBiometricAvailable) {
-        if (biometricContext != null && uiResult.isBiometricAvailable) {
-            delay(200)
-            try {
-                component.tryBiometricAuthentication(biometricContext)
-            } catch (_: Exception) {
-            }
-        }
-    }
-
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit) { 
+        component.initLoadEnterPasscodeScreen()
         component.uiEffect.collect { effect ->
             when (effect) {
                 EnterPasscodeUiEffect.InvalidPasscode -> {
@@ -78,6 +72,16 @@ fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
                         snackbarHostState.showSnackBarCard(snackbarMessage)
                     }
                 }
+            }
+        }
+    }
+
+    LaunchedEffect(biometricContext, isBiometricAvailable.value) {
+        if (biometricContext != null && isBiometricAvailable.value) {
+            delay(200)
+            try {
+                component.tryBiometricAuthentication(biometricContext)
+            } catch (_: Exception) {
             }
         }
     }
@@ -116,14 +120,14 @@ fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
 
                 PasscodeStatus(
                     modifier = Modifier.fillMaxWidth().weight(1f),
-                    enteredDigitsSize = uiResult.enteredDigits.size
+                    enteredDigitsSize = enteredDigits.value.size
                 )
 
                 PasscodeKeyboard(
                     onNumberClick = { component.emitAction(EnterPasscodeUiAction.NumberClick(it)) },
                     onDeleteClick = { component.emitAction(EnterPasscodeUiAction.DeleteClick) },
                     modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
-                    onBiometricClick = if (uiResult.isBiometricAvailable && biometricContext != null) {
+                    onBiometricClick = if (isBiometricAvailable.value && biometricContext != null) {
                         {
                             scope.launch {
                                 try {
@@ -133,7 +137,7 @@ fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
                             }
                         }
                     } else null,
-                    enteredDigitsSize = uiResult.enteredDigits.size
+                    enteredDigitsSize = enteredDigits.value.size
                 )
             }
 
@@ -145,7 +149,7 @@ fun EnterPasscodeScreen(component: EnterPasscodeComponent) {
         }
     }
 
-    if (uiResult.isShowForgotDialog) {
+    if (isShowForgotDialog.value) {
         AlertAction(
             data = AlertActionData(
                 titleAction = stringResource(Res.string.enter_passcode_alert_title),

@@ -48,6 +48,10 @@
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Используйте Face ID для быстрого входа в приложение</string>
 </dict>

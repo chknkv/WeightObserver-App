@@ -12,7 +12,7 @@
 
     <!-- Biometry -->
     <string name="biometry_title">Use biometrics to log in</string>
-    <string name="biometry_subtitle">You can use fingerprint or Face ID for quick access</string>
+    <string name="biometry_subtitle">Instead of entering a passcode — you can simply verify your biometrics — it\'s convenient and secure</string>
     <string name="biometry_enable">Enable biometrics</string>
     <string name="biometry_skip">Skip</string>
 

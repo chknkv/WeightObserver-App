@@ -70,6 +70,8 @@ fun MeasurementBottomSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val focusRequester = remember { FocusRequester() }
 
+    LaunchedEffect(Unit) { sheetState.expand() }
+
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
@@ -143,9 +145,11 @@ fun MeasurementBottomSheet(
         }
     }
     
-    LaunchedEffect(Unit) {
-        delay(500)
-        focusRequester.requestFocus()
+    LaunchedEffect(sheetState.isVisible) {
+        if (sheetState.isVisible) {
+            delay(100)
+            focusRequester.requestFocus()
+        }
     }
 }
 

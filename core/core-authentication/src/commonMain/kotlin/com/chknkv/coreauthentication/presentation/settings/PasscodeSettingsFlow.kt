@@ -37,7 +37,7 @@ fun PasscodeSettingsFlow(
 
     when (step.value) {
         Step.Enter -> key(Step.Enter) {
-            val component = remember(componentContext, passcodeRepository, biometricAuthenticator, sessionRepository) {
+            val component = remember(componentContext, passcodeRepository, biometricAuthenticator, sessionRepository, step.value) {
                 AuthenticationFactory.createEnterPasscodeComponent(
                     componentContext = componentContext,
                     passcodeRepository = passcodeRepository,
@@ -58,7 +58,7 @@ fun PasscodeSettingsFlow(
         }
 
         Step.Create -> key(Step.Create) {
-            val component = remember(componentContext, passcodeRepository, biometricAuthenticator) {
+            val component = remember(componentContext, passcodeRepository, biometricAuthenticator, step.value) {
                 AuthenticationFactory.createPasscodeComponent(
                     componentContext = componentContext,
                     passcodeRepository = passcodeRepository,
@@ -80,7 +80,7 @@ fun PasscodeSettingsFlow(
         }
 
         Step.Biometry -> key(Step.Biometry) {
-            val component = remember(componentContext, passcodeRepository, biometricAuthenticator) {
+            val component = remember(componentContext, passcodeRepository, biometricAuthenticator, step.value) {
                 AuthenticationFactory.createBiometryComponent(
                     componentContext = componentContext,
                     passcodeRepository = passcodeRepository,

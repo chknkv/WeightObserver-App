@@ -3,6 +3,8 @@
     <string name="information_title">Important Information</string>
     <string name="information_accept">Got it</string>
     <string name="information_accept_description">By clicking "Got it", you agree to the Terms of Use and acknowledge that you have read the information above</string>
+    <string name="information_about_title">What this app is about</string>
+    <string name="information_about_subtitle">An app for tracking your weight. Log one measurement per day, then see how your weight changes over time</string>
     <string name="information_block_1_title">Not Medical Software</string>
     <string name="information_block_1_subtitle">The application is created solely for self-monitoring of weight. For medical advice and treatment plans, please consult a doctor</string>
     <string name="information_block_2_title">Data Privacy</string>

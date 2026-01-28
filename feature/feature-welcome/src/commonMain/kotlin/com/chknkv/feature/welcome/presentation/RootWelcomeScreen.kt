@@ -2,7 +2,7 @@ package com.chknkv.feature.welcome.presentation
 
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.stack.Children
-import com.arkivanov.decompose.extensions.compose.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.chknkv.coreauthentication.presentation.biometry.BiometryScreen
 import com.chknkv.coreauthentication.presentation.createpasscode.CreatePasscodeScreen
@@ -20,7 +20,7 @@ import com.chknkv.feature.welcome.presentation.information.InformationScreen
 fun RootWelcomeScreen(component: RootWelcomeComponent) {
     Children(
         stack = component.childStack,
-        animation = stackAnimation(slide())
+        animation = stackAnimation(fade())
     ) {
         when (val child = it.instance) {
             is RootWelcomeComponent.Child.Information -> InformationScreen(child.component)

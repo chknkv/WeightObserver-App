@@ -1,11 +1,11 @@
 package com.chknkv.weightobserver
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.arkivanov.decompose.extensions.compose.stack.Children
-import com.arkivanov.decompose.extensions.compose.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.chknkv.coredesignsystem.theming.AcTheme
 import com.chknkv.coresession.LanguageManager
@@ -27,13 +27,13 @@ fun WeightObserverAppUiRoot(
     darkTheme: Boolean? = null
 ) {
     val languageManager = koinInject<LanguageManager>()
-    val currentLanguage by languageManager.currentLanguage.collectAsState()
+    val currentLanguage by languageManager.currentLanguage.collectAsStateWithLifecycle()
 
     key(currentLanguage) {
         AcTheme(darkTheme = darkTheme) {
             Children(
                 stack = rootComponent.rootStack,
-                animation = stackAnimation(slide())
+                animation = stackAnimation(fade())
             ) {
                 when (val child = it.instance) {
                     is WeightObserverRootComponent.RootChild.Auth -> RootWelcomeScreen(component = child.component)

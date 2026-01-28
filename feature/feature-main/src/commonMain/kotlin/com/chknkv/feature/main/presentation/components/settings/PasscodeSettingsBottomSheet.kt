@@ -20,6 +20,8 @@ import com.chknkv.coredesignsystem.theming.getThemedColor
 import com.chknkv.coreauthentication.domain.BiometricAuthenticator
 import com.chknkv.coreauthentication.domain.PasscodeRepository
 import com.chknkv.coresession.SessionRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.compose.koinInject
 
 /**
@@ -47,7 +49,10 @@ fun PasscodeSettingsBottomSheet(
     var initialEnter by remember { mutableStateOf<Boolean?>(null) }
 
     LaunchedEffect(Unit) {
-        initialEnter = passcodeRepository.getPasscodeHash() != null
+        val hasPasscode = withContext(Dispatchers.Default) {
+            passcodeRepository.getPasscodeHash() != null
+        }
+        initialEnter = hasPasscode
         sheetState.expand()
     }
 

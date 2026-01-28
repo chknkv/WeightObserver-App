@@ -10,6 +10,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.chknkv.coredesignsystem.buttons.AcButton
@@ -24,7 +25,10 @@ import weightobserver_project.feature.feature_main.generated.resources.ic_hospit
 import weightobserver_project.feature.feature_main.generated.resources.ic_info
 import weightobserver_project.feature.feature_main.generated.resources.ic_lock
 import weightobserver_project.feature.feature_main.generated.resources.ic_privacy
+import weightobserver_project.feature.feature_main.generated.resources.ic_target
 import weightobserver_project.feature.feature_main.generated.resources.information_accept
+import weightobserver_project.feature.feature_main.generated.resources.information_about_subtitle
+import weightobserver_project.feature.feature_main.generated.resources.information_about_title
 import weightobserver_project.feature.feature_main.generated.resources.information_block_1_subtitle
 import weightobserver_project.feature.feature_main.generated.resources.information_block_1_title
 import weightobserver_project.feature.feature_main.generated.resources.information_block_2_subtitle
@@ -48,6 +52,8 @@ fun InformationBottomSheet(
     modifier: Modifier = Modifier
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    LaunchedEffect(Unit) { sheetState.expand() }
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -80,6 +86,15 @@ fun InformationBottomSheet(
                 Headline3(
                     text = stringResource(Res.string.information_title),
                     modifier = Modifier.fillMaxWidth()
+                )
+
+                CellBase(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    iconRes = Res.drawable.ic_target,
+                    title = stringResource(Res.string.information_about_title),
+                    subtitle = stringResource(Res.string.information_about_subtitle),
+                    maxSubtitle = 8,
+                    iconTint = AcTokens.IconPrimary.getThemedColor()
                 )
 
                 CellBase(

@@ -104,24 +104,31 @@ fun WeightChart(
     val endDate = chartData.endDate
     val points = chartData.points
 
-    val (minY, maxY) = if (points.isNotEmpty()) {
-        val minWeight = points.minOf { it.weight }
-        val maxWeight = points.maxOf { it.weight }
-        val rawMin = minWeight - 25.0
-        val rawMax = maxWeight + 25.0
-        (rawMin.coerceAtLeast(0.0)) to (rawMax.coerceAtMost(1000.0))
-    } else {
-        0.0 to 1000.0
+    // Мемоизация вычислений для оптимизации
+    val (minY, maxY) = remember(points) {
+        if (points.isNotEmpty()) {
+            val minWeight = points.minOf { it.weight }
+            val maxWeight = points.maxOf { it.weight }
+            val rawMin = minWeight - 25.0
+            val rawMax = maxWeight + 25.0
+            (rawMin.coerceAtLeast(0.0)) to (rawMax.coerceAtMost(1000.0))
+        } else {
+            0.0 to 1000.0
+        }
     }
-    val rangeY = (maxY - minY).coerceAtLeast(1.0)
-    val stepY = rangeY / (YSteps - 1)
-    val yLabels = (0 until YSteps).map { maxY - it * stepY }
+    val rangeY = remember(minY, maxY) { (maxY - minY).coerceAtLeast(1.0) }
+    val stepY = remember(rangeY) { rangeY / (YSteps - 1) }
+    val yLabels = remember(maxY, stepY) {
+        (0 until YSteps).map { maxY - it * stepY }
+    }
 
-    val startEpoch = startDate?.toEpochDays() ?: 0L
-    val endEpoch = endDate?.toEpochDays() ?: 0L
-    val rangeEpoch = (endEpoch - startEpoch).coerceAtLeast(1)
-    val xLabels = (0 until XSteps).map { i ->
-        LocalDate.fromEpochDays(startEpoch + rangeEpoch * i / (XSteps - 1))
+    val startEpoch = remember(startDate) { startDate?.toEpochDays() ?: 0L }
+    val endEpoch = remember(endDate) { endDate?.toEpochDays() ?: 0L }
+    val rangeEpoch = remember(startEpoch, endEpoch) { (endEpoch - startEpoch).coerceAtLeast(1) }
+    val xLabels = remember(startEpoch, rangeEpoch) {
+        (0 until XSteps).map { i ->
+            LocalDate.fromEpochDays(startEpoch + rangeEpoch * i / (XSteps - 1))
+        }
     }
 
     val axisLabelStyle = TextStyle(

@@ -17,8 +17,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -27,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chknkv.coredesignsystem.Module
 import com.chknkv.coredesignsystem.buttons.AcButton
 import com.chknkv.coredesignsystem.buttons.AcButtonStyle
@@ -66,8 +69,16 @@ import weightobserver_project.feature.feature_main.generated.resources.statistic
 @Composable
 fun RootMainScreen(component: RootMainComponent) {
 
-    val uiResult by component.uiResult.collectAsState()
+    val uiResult by component.uiResult.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { component.initLoadMainScreen() }
+
+    val isSettingVisible = remember { derivedStateOf { uiResult.isSettingVisible } }
+    val isAddMeasurementVisible = remember { derivedStateOf { uiResult.isAddMeasurementVisible } }
+    val isDetailedStatisticVisible = remember { derivedStateOf { uiResult.isDetailedStatisticVisible } }
+    val chartData = remember { derivedStateOf { uiResult.chartData } }
+    val chartWindowIndex = remember { derivedStateOf { uiResult.chartWindowIndex } }
+    val chartCanSwipeRight = remember { derivedStateOf { uiResult.chartCanSwipeRight } }
+    val lastSavedWeight = remember { derivedStateOf { uiResult.lastSavedWeight } }
 
     Scaffold(
         modifier = Modifier
@@ -82,12 +93,12 @@ fun RootMainScreen(component: RootMainComponent) {
             Column(modifier = Modifier.fillMaxWidth().weight(1f)) {
                 TopContentBlock { action -> component.emitAction(action) }
                 StatisticBlock(
-                    chartData = uiResult.chartData,
-                    chartWindowIndex = uiResult.chartWindowIndex,
-                    chartCanSwipeRight = uiResult.chartCanSwipeRight,
+                    chartData = chartData.value,
+                    chartWindowIndex = chartWindowIndex.value,
+                    chartCanSwipeRight = chartCanSwipeRight.value,
                     onAction = { action -> component.emitAction(action) }
                 )
-                MeasurementBlock(uiResult.lastSavedWeight) { action -> component.emitAction(action) }
+                MeasurementBlock(lastSavedWeight.value) { action -> component.emitAction(action) }
             }
 
             Footnote1Secondary(
@@ -98,29 +109,35 @@ fun RootMainScreen(component: RootMainComponent) {
         }
     }
 
-    if (uiResult.isSettingVisible) {
-        SettingBottomSheet(
-            onAction = { action -> component.emitAction(action) },
-            onDismissRequest = { component.emitAction(SettingsAction.HideSettings) },
-            componentContext = component.componentContext,
-            settingsUiResult = uiResult.settingsUiResult
-        )
+    key(isSettingVisible.value) {
+        if (isSettingVisible.value) {
+            SettingBottomSheet(
+                onAction = { action -> component.emitAction(action) },
+                onDismissRequest = { component.emitAction(SettingsAction.HideSettings) },
+                componentContext = component.componentContext,
+                settingsUiResult = uiResult.settingsUiResult
+            )
+        }
     }
 
-    if (uiResult.isAddMeasurementVisible) {
-        MeasurementBottomSheet(
-            measurementUiResult = uiResult.measurementUiResult,
-            onAction = { action -> component.emitAction(action) },
-            onDismissRequest = { component.emitAction(AddMeasurementAction.HideAddMeasurement) }
-        )
+    key(isAddMeasurementVisible.value) {
+        if (isAddMeasurementVisible.value) {
+            MeasurementBottomSheet(
+                measurementUiResult = uiResult.measurementUiResult,
+                onAction = { action -> component.emitAction(action) },
+                onDismissRequest = { component.emitAction(AddMeasurementAction.HideAddMeasurement) }
+            )
+        }
     }
 
-    if (uiResult.isDetailedStatisticVisible) {
-        DetailedStatisticBottomSheet(
-            uiResult = uiResult.detailedStatisticUiResult,
-            onAction = { component.emitAction(it) },
-            onDismissRequest = { component.emitAction(DetailedStatisticAction.HideDetailedStatistic) }
-        )
+    key(isDetailedStatisticVisible.value) {
+        if (isDetailedStatisticVisible.value) {
+            DetailedStatisticBottomSheet(
+                uiResult = uiResult.detailedStatisticUiResult,
+                onAction = { component.emitAction(it) },
+                onDismissRequest = { component.emitAction(DetailedStatisticAction.HideDetailedStatistic) }
+            )
+        }
     }
 }
 

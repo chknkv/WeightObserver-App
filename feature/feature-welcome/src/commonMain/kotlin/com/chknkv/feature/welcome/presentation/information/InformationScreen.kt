@@ -27,9 +27,12 @@ import weightobserver_project.feature.feature_welcome.generated.resources.ic_inf
 import weightobserver_project.feature.feature_welcome.generated.resources.ic_hospital
 import weightobserver_project.feature.feature_welcome.generated.resources.ic_lock
 import weightobserver_project.feature.feature_welcome.generated.resources.ic_privacy
+import weightobserver_project.feature.feature_welcome.generated.resources.ic_target
 import weightobserver_project.feature.feature_welcome.generated.resources.information_title
 import weightobserver_project.feature.feature_welcome.generated.resources.information_accept
 import weightobserver_project.feature.feature_welcome.generated.resources.information_accept_description
+import weightobserver_project.feature.feature_welcome.generated.resources.information_about_subtitle
+import weightobserver_project.feature.feature_welcome.generated.resources.information_about_title
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_1_title
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_1_subtitle
 import weightobserver_project.feature.feature_welcome.generated.resources.information_block_2_title
@@ -73,6 +76,15 @@ fun InformationScreen(component: InformationComponent) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 32.dp, bottom = 8.dp)
+                )
+
+                CellBase(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    iconRes = Res.drawable.ic_target,
+                    title = stringResource(Res.string.information_about_title),
+                    subtitle = stringResource(Res.string.information_about_subtitle),
+                    maxSubtitle = 8,
+                    iconTint = AcTokens.IconPrimary.getThemedColor()
                 )
 
                 CellBase(

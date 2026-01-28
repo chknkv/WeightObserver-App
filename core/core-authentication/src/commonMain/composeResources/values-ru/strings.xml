@@ -12,7 +12,7 @@
 
     <!-- Biometry -->
     <string name="biometry_title">Использовать биометрию для входа</string>
-    <string name="biometry_subtitle">Можно использовать отпечаток пальца или Face ID для быстрого доступа</string>
+    <string name="biometry_subtitle">Вместо ввода пароля достаточно будет проверить биометрию — это удобно и безопасно</string>
     <string name="biometry_enable">Включить биометрию</string>
     <string name="biometry_skip">Пропустить</string>
 

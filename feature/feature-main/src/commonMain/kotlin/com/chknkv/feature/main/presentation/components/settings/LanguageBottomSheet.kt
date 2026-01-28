@@ -20,6 +20,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,6 +64,8 @@ fun LanguageBottomSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var currentLanguage by remember { mutableStateOf(languageManager.getCurrentLanguageCode().lowercase()) }
     val isRussian = currentLanguage == "ru" || currentLanguage.startsWith("ru-")
+
+    LaunchedEffect(Unit) { sheetState.expand() }
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,

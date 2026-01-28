@@ -13,11 +13,12 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.chknkv.coreauthentication.models.presentation.uiAction.createpasscode.CreatePasscodeUiAction
 import com.chknkv.coreauthentication.models.presentation.uiAction.createpasscode.CreatePasscodeUiEffect
 import com.chknkv.coreauthentication.presentation.keyboard.PasscodeKeyboard
@@ -51,13 +52,16 @@ import weightobserver_project.core.core_authentication.generated.resources.creat
  */
 @Composable
 fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
-    val uiResult by component.uiResult.collectAsState()
+    val uiResult by component.uiResult.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val snackbarMessage = stringResource(Res.string.create_passcode_snackbar_password_not_matched)
 
-    LaunchedEffect(Unit) { component.initLoadCreatePasscodeScreen() }
+    val enteredDigits = remember { derivedStateOf { uiResult.enteredDigits } }
+    val isConfirming = remember { derivedStateOf { uiResult.isConfirming } }
+    val isAlertEnabled = remember { derivedStateOf { uiResult.isAlertEnabled } }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit) { 
+        component.initLoadCreatePasscodeScreen()
         component.uiEffect.collect { effect ->
             when (effect) {
                 CreatePasscodeUiEffect.PasswordsDoNotMatch -> {
@@ -97,7 +101,7 @@ fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
             ) {
 
                 Headline3(
-                    text = if (uiResult.isConfirming) stringResource(Res.string.create_passcode_title_2)
+                    text = if (isConfirming.value) stringResource(Res.string.create_passcode_title_2)
                     else stringResource(Res.string.create_passcode_title_1),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -111,7 +115,7 @@ fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
 
                 PasscodeStatus(
                     modifier = Modifier.fillMaxWidth().weight(1f),
-                    enteredDigitsSize = uiResult.enteredDigits.size
+                    enteredDigitsSize = enteredDigits.value.size
                 )
 
                 PasscodeKeyboard(
@@ -129,7 +133,7 @@ fun CreatePasscodeScreen(component: CreatePasscodeComponent) {
         }
     }
 
-    if (uiResult.isAlertEnabled) {
+    if (isAlertEnabled.value) {
         AlertAction(
             data = AlertActionData(
                 titleAction = stringResource(Res.string.create_passcode_alert_title),
