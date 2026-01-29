@@ -64,19 +64,19 @@ fun InformationScreen(component: InformationComponent) {
             modifier = Modifier.padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Headline3(
+                text = stringResource(Res.string.information_title),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 32.dp, bottom = 8.dp)
+            )
+
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                Headline3(
-                    text = stringResource(Res.string.information_title),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 32.dp, bottom = 8.dp)
-                )
 
                 CellBase(
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -126,7 +126,7 @@ fun InformationScreen(component: InformationComponent) {
             }
 
             Footnote1Secondary(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                 text = stringResource(Res.string.information_accept_description),
                 textAlign = TextAlign.Start
             )

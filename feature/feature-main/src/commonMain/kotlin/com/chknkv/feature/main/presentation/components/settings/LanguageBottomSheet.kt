@@ -166,7 +166,7 @@ private fun LanguageBlock(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp, horizontal = 16.dp),
+                    .padding(vertical = 16.dp, horizontal = 12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -176,8 +176,9 @@ private fun LanguageBlock(
                     modifier = Modifier.size(96.dp)
                 )
 
-                val displayText = if (isSelected) "$text • $selectedSuffix" else text
+                val displayText = if (isSelected) "$text\u00A0•\u00A0$selectedSuffix" else text
                 Body1Secondary(
+                    maxLines = 1,
                     modifier = Modifier.padding(top = 12.dp),
                     text = displayText
                 )

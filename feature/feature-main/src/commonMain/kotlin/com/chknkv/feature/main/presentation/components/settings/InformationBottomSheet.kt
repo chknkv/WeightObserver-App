@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -77,16 +79,18 @@ fun InformationBottomSheet(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
+
+            Headline3(
+                text = stringResource(Res.string.information_title),
+                modifier = Modifier.fillMaxWidth()
+            )
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
+                    .verticalScroll(rememberScrollState())
             ) {
-
-                Headline3(
-                    text = stringResource(Res.string.information_title),
-                    modifier = Modifier.fillMaxWidth()
-                )
 
                 CellBase(
                     modifier = Modifier.padding(vertical = 8.dp),
