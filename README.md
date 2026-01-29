@@ -1,8 +1,4 @@
-# WeightObserver
-
-<p align="center">
-  <strong>Privacy-first weight tracking for Android &amp; iOS</strong>
-</p>
+## WeightObserver - Mobile App
 
 <p align="center">
   <!-- Download links – add your store / release URLs when ready -->
@@ -21,10 +17,11 @@
 ---
 
 - [What is WeightObserver?](#what-is-weightobserver)
-- [Technical overview](#technical-overview)  
-  - [Tech stack](#tech-stack) · [Project structure](#project-structure) · [Build and run](#build-and-run) · [Screenshots](#screenshots) · [Other details](#other-technical-details)
-
----
+- [Technical overview](#technical-overview)
+  - [Build and run](#build-and-run)
+  - [Tech stack](#tech-stack)
+  - [Project structure](#project-structure)
+  - [Other details](#other-technical-details)
 
 ## What is WeightObserver?
 
@@ -36,21 +33,41 @@ WeightObserver is **not medical software**. It’s meant for personal self‑mon
 
 The project is **open source**. You can inspect the code, build the app yourself, or contribute. The full source is available on [GitHub](https://github.com/chknkv/WeightObserver-App).
 
----
-
 ## Technical overview
+
+### Build and run
+
+**Prerequisites**
+
+- **Android:** Android SDK, `ANDROID_HOME` set (or SDK at `~/Library/Android/sdk` on macOS). A device or emulator with USB debugging enabled.
+- **iOS:** Xcode, iOS Simulator or a physical iPhone/iPad. For device builds, code signing must be configured.
+
+**Commands**
+
+From the project root:
+
+```bash
+# Android – build, install, and launch on connected device/emulator
+./scripts/android-run.sh
+
+# iOS – build, install, and launch on Simulator or connected device
+./scripts/ios-run.sh
+```
+
+The scripts use Gradle for the shared Kotlin framework and, on iOS, invoke `xcodebuild` for the app. They pick a single device/simulator if multiple are available.
+
 
 ### Tech stack
 
 |   | Area | Technologies |
 | -- | ------ | -------------- |
-| 🧩 | **Language & multiplatform** | Kotlin 2.3, Kotlin Multiplatform (KMP) |
-| 🎨 | **UI** | Compose Multiplatform, Material 3 |
+| 🧩 | **Language & multiplatform** | [Kotlin 2.3](https://kotlinlang.org), [Kotlin Multiplatform (KMP)](https://kotlinlang.org/docs/multiplatform.html) |
+| 🎨 | **UI** | [Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/) |
 | 🧭 | **Navigation** | [Decompose](https://arkivanov.github.io/Decompose/) |
 | ⚙️ | **DI** | [Koin](https://insert-koin.io/) |
-| 💾 | **Local storage** | [SQLDelight](https://cashapp.github.io/sqldelight/) (Android + iOS), [multiplatform-settings](https://github.com/russhwolf/multiplatform-settings) |
-| 🔐 | **Security** | AndroidX Security Crypto (encrypted settings), optional passcode, biometrics |
-| 📦 | **Other** | kotlinx-datetime, kotlinx-serialization, kotlinx-coroutines, [Napier](https://github.com/AAkira/Napier) (logging) |
+| 💾 | **Local storage** | [SQLDelight](https://cashapp.github.io/sqldelight/), [multiplatform-settings](https://github.com/russhwolf/multiplatform-settings) |
+| 🔐 | **Security** | AndroidX Security Crypto, optional passcode, biometrics |
+| 📦 | **Other** | [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime), [kotlinx-serialization](https://github.com/Kotlin/kotlinx.serialization), [kotlinx-coroutines](https://github.com/Kotlin/kotlinx.coroutines), [Napier](https://github.com/AAkira/Napier) |
 
 ### Project structure
 
@@ -71,36 +88,6 @@ The project is **open source**. You can inspect the code, build the app yourself
 
 - **Features:** Welcome flow (information → language → passcode → optional biometry), main screen with line chart (31‑day windows, swipe), add measurement, detailed statistics, settings (language, passcode, info, open source link, clear data).
 - **Platforms:** Android (minSdk 24) and iOS 15+ (simulator + device). UI and business logic live in `commonMain`; small `androidMain` / `iosMain` parts for platform-specific code (e.g. biometrics, secure storage).
-
-### Build and run
-
-**Prerequisites**
-
-- **Android:** [Android SDK](https://developer.android.com/studio), `ANDROID_HOME` set (or SDK at `~/Library/Android/sdk` on macOS). A device or emulator with USB debugging enabled.
-- **iOS:** Xcode, iOS Simulator or a physical iPhone/iPad. For device builds, code signing must be configured.
-
-**Commands**
-
-From the project root:
-
-```bash
-# Android – build, install, and launch on connected device/emulator
-./scripts/android-run.sh
-
-# iOS – build, install, and launch on Simulator or connected device
-./scripts/ios-run.sh
-```
-
-The scripts use Gradle for the shared Kotlin framework and, on iOS, invoke `xcodebuild` for the app. They pick a single device/simulator if multiple are available.
-
-**Gradle**
-
-- Default: `./gradlew :androidApp:installDebug` (Android) and `./gradlew :shared:linkDebugFrameworkIos*` plus Xcode build (iOS).
-- Wrapper: Gradle **8.14.3** (see `gradle/wrapper/gradle-wrapper.properties`).
-
-### Screenshots
-
-You can add app screenshots (e.g. under `docs/screenshots/`) and link them here. GitHub serves images via [camo](https://github.com/atmos/camo) automatically, so they load reliably in READMEs and third‑party viewers.
 
 ### Other technical details
 
