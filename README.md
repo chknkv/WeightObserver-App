@@ -33,6 +33,13 @@ WeightObserver is **not medical software**. It’s meant for personal self‑mon
 
 The project is **open source**. You can inspect the code, build the app yourself, or contribute. The full source is available on [GitHub](https://github.com/chknkv/WeightObserver-App).
 
+<p align="center">
+  <img src="images/ios_image/ios_EN_001.png" alt="WeightObserver iOS - Screenshot 1" width="200" />
+  <img src="images/ios_image/ios_EN_002.png" alt="WeightObserver iOS - Screenshot 2" width="200" />
+  <img src="images/ios_image/ios_EN_003.png" alt="WeightObserver iOS - Screenshot 3" width="200" />
+  <img src="images/ios_image/ios_EN_004.png" alt="WeightObserver iOS - Screenshot 4" width="200" />
+</p>
+
 ## Technical overview
 
 ### Build and run
