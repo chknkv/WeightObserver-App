@@ -53,7 +53,6 @@ fun PasscodeSettingsBottomSheet(
             passcodeRepository.getPasscodeHash() != null
         }
         initialEnter = hasPasscode
-        sheetState.expand()
     }
 
     ModalBottomSheet(

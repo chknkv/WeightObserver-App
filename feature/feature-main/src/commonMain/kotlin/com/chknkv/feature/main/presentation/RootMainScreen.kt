@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -19,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -84,8 +82,7 @@ fun RootMainScreen(component: RootMainComponent) {
         modifier = Modifier
             .fillMaxSize()
             .background(AcTokens.Background0.getThemedColor())
-            .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
-            .imePadding(),
+            .padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
         contentColor = AcTokens.Background0.getThemedColor(),
         containerColor = AcTokens.Background0.getThemedColor()
     ) { paddingValues ->
@@ -109,35 +106,29 @@ fun RootMainScreen(component: RootMainComponent) {
         }
     }
 
-    key(isSettingVisible.value) {
-        if (isSettingVisible.value) {
-            SettingBottomSheet(
-                onAction = { action -> component.emitAction(action) },
-                onDismissRequest = { component.emitAction(SettingsAction.HideSettings) },
-                componentContext = component.componentContext,
-                settingsUiResult = uiResult.settingsUiResult
-            )
-        }
+    if (isSettingVisible.value) {
+        SettingBottomSheet(
+            onAction = { action -> component.emitAction(action) },
+            onDismissRequest = { component.emitAction(SettingsAction.HideSettings) },
+            componentContext = component.componentContext,
+            settingsUiResult = uiResult.settingsUiResult
+        )
     }
 
-    key(isAddMeasurementVisible.value) {
-        if (isAddMeasurementVisible.value) {
-            MeasurementBottomSheet(
-                measurementUiResult = uiResult.measurementUiResult,
-                onAction = { action -> component.emitAction(action) },
-                onDismissRequest = { component.emitAction(AddMeasurementAction.HideAddMeasurement) }
-            )
-        }
+    if (isAddMeasurementVisible.value) {
+        MeasurementBottomSheet(
+            measurementUiResult = uiResult.measurementUiResult,
+            onAction = { action -> component.emitAction(action) },
+            onDismissRequest = { component.emitAction(AddMeasurementAction.HideAddMeasurement) }
+        )
     }
 
-    key(isDetailedStatisticVisible.value) {
-        if (isDetailedStatisticVisible.value) {
-            DetailedStatisticBottomSheet(
-                uiResult = uiResult.detailedStatisticUiResult,
-                onAction = { component.emitAction(it) },
-                onDismissRequest = { component.emitAction(DetailedStatisticAction.HideDetailedStatistic) }
-            )
-        }
+    if (isDetailedStatisticVisible.value) {
+        DetailedStatisticBottomSheet(
+            uiResult = uiResult.detailedStatisticUiResult,
+            onAction = { component.emitAction(it) },
+            onDismissRequest = { component.emitAction(DetailedStatisticAction.HideDetailedStatistic) }
+        )
     }
 }
 

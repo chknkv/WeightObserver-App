@@ -48,6 +48,7 @@
     <string name="measurement_cancel">Отмена</string>
     <string name="measurement_add">Добавить</string>
     <string name="measurement_privacy_policy">Все данные о&#160;весе, которые вы вводите, остаются в&#160;памяти устройства. Мы не отправляем их на&#160;сторонние серверы</string>
+    <string name="measurement_weight_unit">кг</string>
     <!-- End Measurement Region -->
 
     <!-- Statistic Region -->

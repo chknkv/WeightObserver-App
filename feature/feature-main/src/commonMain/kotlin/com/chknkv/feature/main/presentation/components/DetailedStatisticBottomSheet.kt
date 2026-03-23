@@ -81,8 +81,6 @@ fun DetailedStatisticBottomSheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    LaunchedEffect(Unit) { sheetState.expand() }
-
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,

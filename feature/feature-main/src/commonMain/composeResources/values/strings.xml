@@ -48,6 +48,7 @@
     <string name="measurement_cancel">Cancel</string>
     <string name="measurement_add">Add</string>
     <string name="measurement_privacy_policy">All weight data you enter remains on your device. We do not send it to third-party servers</string>
+    <string name="measurement_weight_unit">kg</string>
     <!-- End Measurement Region -->
 
     <!-- Statistic Region -->

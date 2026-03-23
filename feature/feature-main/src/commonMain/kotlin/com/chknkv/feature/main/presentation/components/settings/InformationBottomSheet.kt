@@ -12,7 +12,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.chknkv.coredesignsystem.buttons.AcButton
@@ -54,8 +53,6 @@ fun InformationBottomSheet(
     modifier: Modifier = Modifier
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-
-    LaunchedEffect(Unit) { sheetState.expand() }
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
